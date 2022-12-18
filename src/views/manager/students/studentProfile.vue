@@ -1,22 +1,17 @@
 <template>
   <div class="team">
     <v-container class="indigo lighten-5 my-5">
-      <v-bottom-navigation
-        :value="value"
-        color="#00BCD4"
-      >
-        <v-btn
-          @click="selectedCompnent = 'Home'"
-        >
+      <v-bottom-navigation :value="value" color="#00BCD4">
+        <v-btn @click="selectedCompnent = 'Home'">
           <span class="pa-1">عام</span>
           <v-icon>fa-home</v-icon>
         </v-btn>
-
-        <v-btn
-          @click="selectedCompnent = 'Edit'"
-        >
+        <v-btn @click="selectedCompnent = 'Edit'">
           <span>تعديل</span>
-
+          <v-icon>fa-edit</v-icon>
+        </v-btn>
+        <v-btn @click="selectedCompnent = 'EditImages'">
+          <span>تعديل المستمسكات</span>
           <v-icon>fa-edit</v-icon>
         </v-btn>
         <!-- <v-btn
@@ -32,14 +27,15 @@
   </div>
 </template>
 <script>
-import Home from './studentProfileInfo/home.vue'
 import Edit from './studentProfileInfo/edit.vue'
+import EditImages from './studentProfileInfo/editImages.vue'
+import Home from './studentProfileInfo/home.vue'
 
 // import StudentSalay from './studentProfileInfo/studentSalary.vue'
 
 export default {
   // components: { Home, Edit, StudentSalay },
-  components: { Home, Edit },
+  components: { Home, Edit, EditImages },
   data() {
     return {
       value: 0,

@@ -372,6 +372,23 @@ class Api {
             })
     }
 
+    async editStudentImages(data) {
+        axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+
+        return axios
+            .put('/student/editImages', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then(Response => Response)
+            .catch(error => {
+                console.log('error', error)
+
+                return error.response
+            })
+    }
+
     // disable student
     async getStudentsDisabled(page, limit, search) {
         axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')

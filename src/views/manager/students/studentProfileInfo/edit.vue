@@ -89,7 +89,7 @@
   </div>
 </template>
 <script>
-import Api from '../../../../api/api'
+import Api from '@/api/api'
 
 export default {
   data() {

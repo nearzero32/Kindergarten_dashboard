@@ -185,8 +185,6 @@ export default {
 
       const response = await adminApi.getOneSchools(this.$route.params.school_id)
 
-      console.log('response', response);
-
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
       } else if (response.status === 500) {
@@ -254,7 +252,6 @@ export default {
         return this.content_url + this.teacherData.school_logo
       } else {
         return this.img1Url
-
       }
 
     },
