@@ -517,65 +517,40 @@ export default {
       }
     },
 
-    getAllTeacherDataAxios() {
+    async getAllTeacherDataAxios() {
       this.xlsxData.downloadLoading = true
 
-      let { search } = this.table
-      let { page } = this.tableOptions
-      if (!search) {
-        search = ''
+      const response = await Api.getStudents(1, 10000000000000, null)
+
+      if (response.status === 401) {
+        this.$store.dispatch('submitLogout')
+      } else if (response.status === 500) {
+        this.showDialogfunction(response.data.results, '#FF5252')
+      } else {
+        this.allTeacherData = response.data.results.data
+        this.handleDownload()
       }
 
-      if (!page) {
-        page = 1
-      }
-
-      this.axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
-      this.axios
-        .post('allStudent', {
-          page,
-          limit: 1000000,
-          search,
-        })
-        .then(Response => {
-          if (Response.data.results === 'غير مصرح') {
-            this.$store.dispatch('submitLogout')
-          } else {
-            this.allTeacherData = Response.data.results
-            this.handleDownload()
-          }
-        })
-        .catch(error => {
-          this.xlsxData.downloadLoading = false
-          this.showDialogfunction(Response.data.results, '#FF5252')
-          console.log('error', error)
-        })
     },
 
     handleDownload() {
       import('@/vendor/Export2Excel').then(excel => {
-        if (this.featuredFingerId === 1) {
-          /* eslint-disable*/
-          var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان', 'رقم البصمة']
-          var filterVal = [
-            'account_name',
-            'account_email',
-            'account_password_show',
-            'account_mobile',
-            'account_address',
-            'account_card_number',
-          ]
-        } else {
-          var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان']
-          var filterVal = [
-            'account_name',
-            'account_email',
-            'account_password_show',
-            'account_mobile',
-            'account_address',
-          ]
-        }
-
+        /* eslint-disable*/
+        var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الصف والشعبة', 'الهاتف الاول', 'الهاتف الثاني', 'الهاتف الثالث', 'الهاتف الرابع', 'عيد الميلاد', 'المنزل', 'المحلة', 'الزقاق']
+        var filterVal = [
+          'account_name',
+          'account_email',
+          'account_password_show',
+          'account_division_current_for_excel',
+          'account_mobile1',
+          'account_mobile2',
+          'account_mobile3',
+          'account_mobile4',
+          'account_birthday',
+          'account_home',
+          'account_city',
+          'account_alley',
+        ]
         // const { list } = this
         const data = this.formatJson(filterVal, this.allTeacherData)
         excel.export_json_to_excel({

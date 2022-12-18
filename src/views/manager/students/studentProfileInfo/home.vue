@@ -45,7 +45,7 @@
           </div>
           <!-- mobile4 -->
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
-            <span class="primary--text">الهاتف الثالث </span> {{ teacherData.account_mobile4 }}
+            <span class="primary--text">الهاتف الرابع </span> {{ teacherData.account_mobile4 }}
           </div>
           <!-- card_number -->
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">

@@ -17,7 +17,7 @@ Vue.use(VueAxios, axios)
 
 axios.defaults.baseURL = 'https://api.jasmine-k.com/api/web/'
 
-// axios.defaults.baseURL = 'http://192.168.9.186:3500/api/web/'
+// axios.defaults.baseURL = 'http://localhost:3500/api/web/'
 
 axios.interceptors.response.use(
     response => response,
