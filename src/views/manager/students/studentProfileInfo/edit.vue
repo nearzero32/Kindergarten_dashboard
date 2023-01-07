@@ -21,49 +21,54 @@
               <v-text-field v-model="teacherData.account_card_number" dense
                 label="رقم بطاقة البصمة التابعة للطالب (اختياري)" outlined></v-text-field>
             </v-col>
-            <!-- gender -->
-            <!-- <v-col
-              md="4"
-              sm="6"
-              cols="12"
-            >
-              <v-select
-                v-model="teacherData.account_gender"
-                :items="account_genderItems"
-                :rules="Rules.account_genderRules"
-                dense
-                item-text="text"
-                item-value="value"
-                label="الجنس"
-                outlined
-              ></v-select>
-            </v-col> -->
-            <!-- <v-col md="4" sm="6" cols="12">
-              <v-menu v-model="menuAccountBirthday" :close-on-content-click="false" :nudge-right="40"
-                transition="scale-transition" offset-y min-width="290px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="teacherData.account_birthday" :rules="Rules.account_birthdayRules" dense
-                    label="المواليد" outlined clearable readonly v-bind="attrs" v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="teacherData.account_birthday" @input="menuAccountBirthday = false">
-                </v-date-picker>
-              </v-menu>
-            </v-col> -->
+            <!-- password -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_password_show" :rules="Rules.account_passwordRules" dense
+                label="الرمز" outlined></v-text-field>
+            </v-col>
             <!-- accountDisable -->
             <v-col md="4" sm="6" cols="12">
               <v-select v-model="teacherData.isAccountDisabled" :items="account_disableItems" dense item-text="text"
                 item-value="value" label="الحساب" outlined></v-select>
             </v-col>
-            <!-- address -->
-            <!-- <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.account_address" :rules="Rules.account_addressRules" dense
-                label="العنوان" outlined></v-text-field>
-            </v-col> -->
             <!-- divisions -->
             <v-col md="4" sm="6" cols="12">
               <v-autocomplete v-model="teacherData.account_division_current" :items="classSchoolData"
                 :loading="classLoading" :item-text="item => item.class_name + ' - ' + item.leader" item-value="_id"
                 label="الصف والشعبة" dense outlined></v-autocomplete>
+            </v-col>
+            <!-- account_mobile1 -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_mobile1" dense label="الهاتف الاول" outlined></v-text-field>
+            </v-col>
+            <!-- account_mobile2 -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_mobile2" dense label="الهاتف الثاني" outlined></v-text-field>
+            </v-col>
+            <!-- account_mobile3 -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_mobile3" dense label="الهاتف الثالث" outlined></v-text-field>
+            </v-col>
+            <!-- account_mobile4 -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_mobile4" dense label="الهاتف الرابع" outlined></v-text-field>
+            </v-col>
+            <!-- account_home -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_home" dense label="المنزل" outlined></v-text-field>
+            </v-col>
+            <!-- account_city -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_city" dense label="المحلة" outlined></v-text-field>
+            </v-col>
+            <!-- account_alley -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_alley" dense label="الزقاق" outlined></v-text-field>
+            </v-col>
+            <!-- account_nearest_point -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_nearest_point" dense label="اقرب نقطة دالة"
+                outlined></v-text-field>
             </v-col>
           </v-row>
           <v-row v-else class="mt-10 mb-2 d-flex justify-center">
@@ -90,6 +95,7 @@
 </template>
 <script>
 import Api from '@/api/api'
+import { sha512 } from 'js-sha512'
 
 export default {
   data() {
@@ -111,6 +117,7 @@ export default {
         account_birthdayRules: [value => !!value || 'يوم الميلاد مطلوب'],
         account_genderRules: [value => !!value || 'الجنس مطلوب'],
         account_addressRules: [value => !!value || 'العنوان مطلوب'],
+        required: [value => !!value || 'الحقل مطلوب'],
         account_mobile: [
           value => (value && value.length == 11) || 'يجب ان يكون 11 رقم',
           value => /^\d*\.?\d*$/.test(value) || 'يجب ان تكون ارقام',
@@ -191,8 +198,18 @@ export default {
       const response = await Api.editStudent({
         _id: this.$route.params.id,
         account_name: this.teacherData.account_name,
-        account_mobile: this.teacherData.account_mobile,
-        account_birthday: this.teacherData.account_birthday,
+        account_mobile1: this.teacherData.account_mobile1,
+        account_mobile2: this.teacherData.account_mobile2,
+        account_mobile3: this.teacherData.account_mobile3,
+        account_mobile4: this.teacherData.account_mobile4,
+        account_password: sha512(this.teacherData.account_password_show),
+        account_password_show: this.teacherData.account_password_show,
+        account_mobile4: this.teacherData.account_mobile4,
+        account_home: this.teacherData.account_home,
+        account_area: this.teacherData.account_area,
+        account_city: this.teacherData.account_city,
+        account_alley: this.teacherData.account_alley,
+        account_nearest_point: this.teacherData.account_nearest_point,
         account_card_number: this.teacherData.account_card_number,
         isAccountDisabled: this.teacherData.isAccountDisabled,
         account_address: this.teacherData.account_address,

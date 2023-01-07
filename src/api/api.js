@@ -276,6 +276,21 @@ class Api {
             })
     }
 
+    async removeStudentImgs(account_id) {
+        axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+
+        return axios
+            .put('/student/remove/imgs', {
+                account_id,
+            })
+            .then(Response => Response)
+            .catch(error => {
+                console.log('error', error)
+
+                return error.response
+            })
+    }
+
     async editPasswordStudent(account_id, account_password, account_password_show) {
 
         axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
@@ -347,14 +362,24 @@ class Api {
             })
     }
 
-    async editStudent({ _id, account_name, account_mobile, account_birthday, account_card_number, isAccountDisabled, account_address, class_school_id, class_study_year }) {
+    async editStudent({ _id, account_name, account_mobile1, account_mobile2, account_mobile3, account_mobile4, account_password, account_password_show, account_home, account_area, account_city, account_alley, account_nearest_point, account_birthday, account_card_number, isAccountDisabled, account_address, class_school_id, class_study_year }) {
         axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
         return axios
             .put('/student/edit', {
                 account_id: _id,
                 account_name,
-                account_mobile,
+                account_mobile1,
+                account_mobile2,
+                account_mobile3,
+                account_mobile4,
+                account_password,
+                account_password_show,
+                account_home,
+                account_area,
+                account_city,
+                account_alley,
+                account_nearest_point,
                 account_birthday,
                 account_card_number,
                 isAccountDisabled,

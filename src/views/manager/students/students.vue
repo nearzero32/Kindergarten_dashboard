@@ -4,7 +4,7 @@
       <v-card class="white pa-3">
         <h1 class="text-center mb-3 subtitle-4 black--text"> الطلاب </h1>
         <h3 class="text-center mb-3 subtitle-4 black--text"> {{ $route.params.class_school_leader }}-{{
-            $route.params.classes_name
+          $route.params.classes_name
         }} </h3>
         <v-row>
           <v-col md="4" cols="12">
@@ -34,12 +34,12 @@
               <template slot="item._id" slot-scope="props"> {{ props.index + 1 }} </template>
               <template v-slot:item.account_name="{ item }">
                 <router-link :to="'/students/studentProfile/' + item._id + '/' + item.account_name"> {{
-                    item.account_name
+                  item.account_name
                 }} </router-link>
               </template>
               <template v-slot:item.isAccountDisabled="{ item }">
                 <span v-if="item.isAccountDisabled === true" class="warning--text">متوقف</span>
-                <span v-else>مقعل</span>
+                <span v-else>مفعل</span>
               </template>
               <template v-slot:item.isAccountUploadedFile="{ item }">
                 <span v-if="!item.isAccountUploadedFile">لا توجد بيانات</span>
@@ -53,10 +53,6 @@
               <!-- <template v-slot:item.account_name="{ item }">
               item.account_name
             </template> -->
-              <template v-slot:item.isAccountDisabled="{ item }">
-                <span v-if="item.isAccountDisabled === true" class="warning--text">متوقف</span>
-                <span v-else>مقعل</span>
-              </template>
               <template v-slot:item.account_img="{ item }">
                 <img v-if="item.account_img" class="teacher_image_table" :src="content_url + item.account_img" alt
                   width="50" height="50" @click="showImage(item.account_img)" />
@@ -75,6 +71,13 @@
                       fa-trash </v-icon>
                   </template>
                   <span>حذف</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="secondary" v-bind="attrs" class="ml-2" size="20" v-on="on"
+                      @click="deleteImgsItem(item)"> fa-eraser </v-icon>
+                  </template>
+                  <span>حذف المستمسكات</span>
                 </v-tooltip>
                 <v-tooltip bottom v-if="!item.isAccountDisabled">
                   <template v-slot:activator="{ on, attrs }">
@@ -175,6 +178,18 @@
       </v-card>
     </v-dialog>
     <!-- End delete dailog -->
+    <!-- delete imgs dialog -->
+    <v-dialog v-model="dialogImgsRemove.open" max-width="500px">
+      <v-card>
+        <v-card-title class="headline"> هل انت متأكد من حذف مستمسكات هذا الحساب ؟ </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialogImgsRemove.open = false"> الغاء </v-btn>
+          <v-btn color="secondary" :loading="dialogImgsRemove.loading" @click="deleteImgsItemConfirm"> حذف </v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <!-- stop dialog -->
     <v-dialog v-model="dialogStopStudent.open" max-width="500px">
       <v-card>
@@ -262,7 +277,16 @@ export default {
         ],
       },
 
+
+      dialogImgsRemove: {
+        open: false,
+        loading: false,
+        item: {}
+      },
+
+
       dialogDelete: false,
+
       dialogData: {
         open: false,
         color: 'primary',
@@ -372,6 +396,30 @@ export default {
       } else {
         this.deleteItemLoading = false
         this.dialogDelete = false
+        this.getStudentData()
+        this.showDialogfunction(response.data.results, 'primary')
+      }
+    },
+
+    deleteImgsItem(item) {
+      this.dialogImgsRemove.item = { ...item }
+      this.dialogImgsRemove.open = true
+    },
+
+    async deleteImgsItemConfirm() {
+      this.dialogImgsRemove.loading = true
+
+      const response = await Api.removeStudentImgs(this.dialogImgsRemove.item._id)
+
+      if (response.status === 401) {
+        this.$store.dispatch('submitLogout')
+      } else if (response.status === 500) {
+        this.dialogImgsRemove.open = false
+        this.dialogImgsRemove.loading = false
+        this.showDialogfunction(response.data.results, '#FF5252')
+      } else {
+        this.dialogImgsRemove.open = false
+        this.dialogImgsRemove.loading = false
         this.getStudentData()
         this.showDialogfunction(response.data.results, 'primary')
       }
