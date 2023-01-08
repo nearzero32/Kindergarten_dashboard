@@ -409,7 +409,7 @@ export default {
     async deleteImgsItemConfirm() {
       this.dialogImgsRemove.loading = true
 
-      const response = await Api.removeStudentImgs(this.dialogImgsRemove.item._id)
+      const response = await Api.removeStudentInfo(this.dialogImgsRemove.item._id)
 
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')

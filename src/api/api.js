@@ -276,11 +276,11 @@ class Api {
             })
     }
 
-    async removeStudentImgs(account_id) {
+    async removeStudentInfo(account_id) {
         axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
         return axios
-            .put('/student/remove/imgs', {
+            .put('/student/remove/info', {
                 account_id,
             })
             .then(Response => Response)
