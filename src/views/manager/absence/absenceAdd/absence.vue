@@ -85,7 +85,7 @@
   </div>
 </template>
 <script>
-import Api from '../../../../api/api'
+import Api from '@/api/api'
 
 export default {
   data() {
@@ -203,7 +203,7 @@ export default {
     },
 
     async submitEdit() {
-      // this.editLoading = true
+      this.editLoading = true
       const data = (await this.modifyDataToUpload(this.studentsData)).data
       const absenceIds = (await this.modifyDataToUpload(this.studentsData)).absenceIds
 

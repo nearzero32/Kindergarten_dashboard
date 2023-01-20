@@ -59,7 +59,20 @@ let index = [{
             },
         ],
     },
-
+    //absence
+    {
+        title: 'الحضور',
+        icon: ' fa-clock',
+        children: [{
+                title: 'عرض',
+                to: 'absenceShow',
+            },
+            {
+                title: 'اضافة',
+                to: 'absenceAdd',
+            },
+        ],
+    },
 
     //notification
     {

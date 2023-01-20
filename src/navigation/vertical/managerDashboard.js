@@ -26,6 +26,20 @@ export default [{
             },
         ],
     },
+    //absence
+    {
+        title: 'الحضور',
+        icon: ' fa-clock',
+        children: [{
+                title: 'عرض',
+                to: 'absenceShow',
+            },
+            {
+                title: 'اضافة',
+                to: 'absenceAdd',
+            },
+        ],
+    },
     {
         title: 'السواق',
         icon: 'fa-bus',
