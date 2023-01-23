@@ -596,6 +596,27 @@ const routes = [
         },
     },
 
+    // fingerPrint
+    {
+        path: '/fingerPrint',
+        name: 'fingerPrint',
+        component: () =>
+            import ('@/views/manager/fingerPrint/fingerPrint.vue'),
+        beforeEnter(to, from, next) {
+            if (
+                localStorage.getItem('accessToken') &&
+                JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+            ) {
+                next()
+            } else {
+                next('/')
+            }
+        },
+        meta: {
+            layout: 'content',
+        },
+    },
+
     //studyStrategy
 
     {

@@ -124,6 +124,13 @@ let index = [{
         to: 'ads',
     },
 
+    // fingerprint
+    {
+        title: 'البصمة',
+        icon: 'fa-fingerprint',
+        to: 'fingerPrint',
+    },
+
     //connectUs
     {
         title: 'اتصل بنا',
