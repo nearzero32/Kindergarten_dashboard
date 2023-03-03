@@ -53,7 +53,7 @@
     "vetur.validation.template": false,
     "vetur.format.defaultFormatter.html": "none",
     "[vue]": {
-        "editor.defaultFormatter": "Vue.volar",
+        "editor.defaultFormatter": "octref.vetur",
     },
     // Extension: npm
     "npm.packageManager": "yarn",

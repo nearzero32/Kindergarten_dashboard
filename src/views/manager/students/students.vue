@@ -277,13 +277,11 @@ export default {
         ],
       },
 
-
       dialogImgsRemove: {
         open: false,
         loading: false,
-        item: {}
+        item: {},
       },
-
 
       dialogDelete: false,
 
@@ -512,7 +510,7 @@ export default {
     showImage(image) {
       this.table.showImageDailog = true
       this.table.imageUrlForShow = image
-      console.log('this.table.imageUrlForShow', this.table.imageUrlForShow);
+      console.log('this.table.imageUrlForShow', this.table.imageUrlForShow)
     },
 
     showDialogfunction(bodyText, color) {
@@ -522,64 +520,42 @@ export default {
     },
 
     handleDownload() {
-      // check fingerFeature
-
-      /* eslint-disable*/
-      // var header = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان', 'رقم البصمة']
-      // var body = [
-      //   'account_name',
-      //   'account_email',
-      //   'account_password_show',
-      //   'account_mobile',
-      //   'account_address',
-      //   'account_card_number',
-      // ]
-      // if (this.featuredFingerId === 1) {
-      //   var header = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان', 'رقم البصمة']
-      //   var body = [
-      //     'account_name',
-      //     'account_email',
-      //     'account_password_show',
-      //     'account_mobile',
-      //     'account_address',
-      //     'account_card_number',
-      //   ]
-      // } else {
-      //   var header = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان']
-      //   var body = [
-      //     'account_name',
-      //     'account_email',
-      //     'account_password_show',
-      //     'account_mobile',
-      //     'account_address',
-      //     'account_card_number',
-      //   ]
-      // }
-
-      this.xlsxData.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        // checkForFeatureId
-        if (this.featuredFingerId === 1) {
-          var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان', 'رقم البصمة']
-          var filterVal = [
-            'account_name',
-            'account_email',
-            'account_password_show',
-            'account_mobile',
-            'account_address',
-            'account_card_number',
-          ]
-        } else {
-          var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الهاتف', 'العنوان']
-          var filterVal = [
-            'account_name',
-            'account_email',
-            'account_password_show',
-            'account_mobile',
-            'account_address',
-          ]
-        }
-
+        /* eslint-disable*/
+        var tHeader = [
+          'الاسم',
+          'الايميل',
+          'الرمز',
+          'الصف والشعبة',
+          'رقم البصمة',
+          'رقم البصمة الثانية',
+          'الهاتف الاول',
+          'الهاتف الثاني',
+          'الهاتف الثالث',
+          'الهاتف الرابع',
+          'عيد الميلاد',
+          'المنزل',
+          'المحلة',
+          'الزقاق',
+          'تاريخ الانتساب',
+        ]
+        var filterVal = [
+          'account_name',
+          'account_email',
+          'account_password_show',
+          'account_division_current_for_excel',
+          'account_card_number',
+          'account_card_number_two',
+          'account_mobile1',
+          'account_mobile2',
+          'account_mobile3',
+          'account_mobile4',
+          'account_birthday',
+          'account_home',
+          'account_city',
+          'account_alley',
+          'createdAt',
+        ]
         // const { list } = this
         const data = this.formatJson(filterVal, this.studentsData)
         excel.export_json_to_excel({

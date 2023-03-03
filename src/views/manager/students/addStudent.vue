@@ -55,7 +55,12 @@
             <!-- cardNumber -->
             <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.account_card_number" dense
-                label="رقم بطاقة البصمة التابعة للاستاذ (اختياري)" outlined></v-text-field>
+                label="رقم بطاقة البصمة الاولى (اختياري)" outlined></v-text-field>
+            </v-col>
+            <!-- cardNumber -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_card_number_two" dense
+                label="رقم بطاقة البصمة الثانية (اختياري)" outlined></v-text-field>
             </v-col>
             <!-- division -->
             <v-col md="4" sm="6" cols="12">
@@ -169,6 +174,7 @@ export default {
         account_birthday: null,
         // account_gender: null,
         account_card_number: null,
+        account_card_number_two: null,
         account_max_vacation: null,
         account_start_date: null,
         account_notification: 1,
@@ -221,6 +227,7 @@ export default {
         account_birthday: this.teacherData.account_birthday,
         account_address: this.teacherData.account_address,
         account_card_number: this.teacherData.account_card_number,
+        account_card_number_two: this.teacherData.account_card_number_two,
         class_school_id: this.teacherData.account_division,
         isAccountDisabled: this.teacherData.isAccountDisabled,
         study_year: study_year,

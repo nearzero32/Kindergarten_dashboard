@@ -19,7 +19,12 @@
             <!-- cardNumber -->
             <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.account_card_number" dense
-                label="رقم بطاقة البصمة التابعة للطالب (اختياري)" outlined></v-text-field>
+                label="رقم بطاقة البصمة الاولى (اختياري)" outlined></v-text-field>
+            </v-col>
+            <!-- cardNumber -->
+            <v-col md="4" sm="6" cols="12">
+              <v-text-field v-model="teacherData.account_card_number_two" dense
+                label="رقم بطاقة البصمة الثانية (اختياري)" outlined></v-text-field>
             </v-col>
             <!-- password -->
             <v-col md="4" sm="6" cols="12">
@@ -211,6 +216,7 @@ export default {
         account_alley: this.teacherData.account_alley,
         account_nearest_point: this.teacherData.account_nearest_point,
         account_card_number: this.teacherData.account_card_number,
+        account_card_number_two: this.teacherData.account_card_number_two,
         isAccountDisabled: this.teacherData.isAccountDisabled,
         account_address: this.teacherData.account_address,
         class_school_id: this.teacherData.account_division_current,

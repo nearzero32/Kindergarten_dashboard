@@ -308,7 +308,7 @@ export default {
       dialogImgsRemove: {
         open: false,
         loading: false,
-        item: {}
+        item: {},
       },
 
       tableOptions: {},
@@ -425,7 +425,7 @@ export default {
         {
           query: { search: this.table.search },
         },
-        () => { },
+        () => {},
       )
     },
 
@@ -452,7 +452,6 @@ export default {
         this.showDialogfunction(response.data.results, 'primary')
       }
     },
-
 
     deleteImgsItem(item) {
       this.dialogImgsRemove.item = { ...item }
@@ -581,18 +580,34 @@ export default {
         this.allTeacherData = response.data.results.data
         this.handleDownload()
       }
-
     },
 
     handleDownload() {
+      this.xlsxData.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         /* eslint-disable*/
-        var tHeader = ['الاسم', 'الايميل', 'الرمز', 'الصف والشعبة', 'الهاتف الاول', 'الهاتف الثاني', 'الهاتف الثالث', 'الهاتف الرابع', 'عيد الميلاد', 'المنزل', 'المحلة', 'الزقاق']
+        var tHeader = [
+          'الاسم',
+          'الايميل',
+          'الرمز',
+          'الصف والشعبة',
+          'رقم البصمة',
+          'الهاتف الاول',
+          'الهاتف الثاني',
+          'الهاتف الثالث',
+          'الهاتف الرابع',
+          'عيد الميلاد',
+          'المنزل',
+          'المحلة',
+          'الزقاق',
+          'تاريخ الانتساب',
+        ]
         var filterVal = [
           'account_name',
           'account_email',
           'account_password_show',
           'account_division_current_for_excel',
+          'account_card_number',
           'account_mobile1',
           'account_mobile2',
           'account_mobile3',
@@ -601,6 +616,7 @@ export default {
           'account_home',
           'account_city',
           'account_alley',
+          'createdAt',
         ]
         // const { list } = this
         const data = this.formatJson(filterVal, this.allTeacherData)

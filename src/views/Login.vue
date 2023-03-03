@@ -14,7 +14,7 @@
           ></v-img> -->
 
           <h2 class="text-2xl font-weight-semibold">
-            المدرسة الالكترونية
+            الروضة الالكترونية
           </h2>
         </v-card-title>
 

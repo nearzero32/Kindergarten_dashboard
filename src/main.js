@@ -15,41 +15,41 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 
-axios.defaults.baseURL = 'https://api.jasmine-k.com/api/web/'
+// axios.defaults.baseURL = 'https://api.jasmine-k.com/api/web/'
 
-// axios.defaults.baseURL = 'http://localhost:3500/api/web/'
+axios.defaults.baseURL = 'http://localhost:3500/api/web/'
 
 axios.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response.status === 401) {
-            store.dispatch('submitLogout')
-            router.push('/')
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      store.dispatch('submitLogout')
+      router.push('/')
 
-            // location.reload()
-        }
+      // location.reload()
+    }
 
-        if (error.response.status === 402) {
-            router.push('/paymentRequired')
-        }
+    if (error.response.status === 402) {
+      router.push('/paymentRequired')
+    }
 
-        return Promise.reject(error)
-    },
+    return Promise.reject(error)
+  },
 )
 
 new Vue({
-    router,
-    store,
-    vuetify,
+  router,
+  store,
+  vuetify,
 
-    // watch: {
-    //   $route(to) {
-    //     console.log('to', to)
+  // watch: {
+  //   $route(to) {
+  //     console.log('to', to)
 
-    //     // if (to.meta.reload === true) {
-    //     //   window.location.reload()
-    //     // }
-    //   },
-    // },
-    render: h => h(App),
+  //     // if (to.meta.reload === true) {
+  //     //   window.location.reload()
+  //     // }
+  //   },
+  // },
+  render: h => h(App),
 }).$mount('#app')

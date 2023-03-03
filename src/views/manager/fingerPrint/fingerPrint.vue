@@ -107,6 +107,13 @@
                   @click="showImage(item.notifications_img3)" />
               </template>
               <template v-slot:item.actions="{ item }">
+                <v-tooltip bottom v-if="item.notifications_student_id.length >= 1">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="primary" class="ml-2" v-bind="attrs" size="18" v-on="on" @click="$router.push(`/students/studentProfile/${item.notifications_student_id[0]._id}/${item.notifications_student_id[0].account_name}`)"> fa-user-graduate
+                    </v-icon>
+                  </template>
+                  <span>عرض معلومات الطالب</span>
+                </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon color="#FF8A80" v-bind="attrs" size="18" v-on="on" @click="deleteItem(item)"> fa-trash
@@ -193,11 +200,11 @@ export default {
       },
       notificationTypeSelectItems: [
         { text: 'واجب بيتي (للطلاب)', value: 'واجب بيتي' },
-        { text: 'رسالة (للطلاب)', value: "رسالة" },
-        { text: 'تقرير (زي - كتب - قرطاسية)', value: "تقرير" },
+        { text: 'رسالة (للطلاب)', value: 'رسالة' },
+        { text: 'تقرير (زي - كتب - قرطاسية)', value: 'تقرير' },
         { text: 'تبليغ (للاساتذة و الخطوط)', value: 'تبليغ' },
-        { text: 'اقساط (للطلاب)', value: "اقساط" },
-        { text: 'الحضور', value: "الحضور" },
+        { text: 'اقساط (للطلاب)', value: 'اقساط' },
+        { text: 'الحضور', value: 'الحضور' },
         { text: 'ملخص الدروس اليومية (للطلاب)', value: 'ملخص' },
         { text: 'اعياد الميلاد', value: 'الميلاد' },
         { text: 'البصمة', value: 'البصمة' },
@@ -254,7 +261,7 @@ export default {
         endDate: null,
       },
 
-      content_url: null
+      content_url: null,
     }
   },
   watch: {
@@ -310,7 +317,13 @@ export default {
         itemsPerPage = 10
       }
 
-      const response = await Api.getNotification({ notificationType: "البصمة", startDate: this.tableModifier.startDate, endDate: this.tableModifier.endDate, page: page, limit: itemsPerPage })
+      const response = await Api.getNotification({
+        notificationType: 'البصمة',
+        startDate: this.tableModifier.startDate,
+        endDate: this.tableModifier.endDate,
+        page: page,
+        limit: itemsPerPage,
+      })
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
       } else if (response.status === 500) {
@@ -348,7 +361,6 @@ export default {
         this.getTeacherDataAxios()
         this.showDialogfunction(response.data.results, 'primary')
       }
-
     },
     goToAddPage() {
       this.$router.push('/messages/addMessages')

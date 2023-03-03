@@ -49,7 +49,11 @@
           </div>
           <!-- card_number -->
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
-            <span class="primary--text">رقم البصمة</span> {{ teacherData.account_card_number }}
+            <span class="primary--text">رقم البصمة الاولى</span> {{ teacherData.account_card_number }}
+          </div>
+          <!-- card_number two -->
+          <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
+            <span class="primary--text">رقم البصمة الثانية</span> {{ teacherData.account_card_number_two }}
           </div>
           <!-- email -->
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
@@ -186,9 +190,6 @@ export default {
         certificate_address: null,
       },
 
-
-
-
       dialogData: {
         open: false,
         color: 'primary',
@@ -221,14 +222,16 @@ export default {
         this.isPageNotLoading = true
         this.teacherData = response.data.results
 
-        this.account_document = response.data.results.account_document ? response.data.results.account_document : {
-          certificate_national_id: null,
-          certificate_national_old: null,
-          certificate_passport: null,
-          certificate_nationality: null,
-          certificate_address: null,
-        },
-          this.content_url = response.data.content_url
+        ;(this.account_document = response.data.results.account_document
+          ? response.data.results.account_document
+          : {
+              certificate_national_id: null,
+              certificate_national_old: null,
+              certificate_passport: null,
+              certificate_nationality: null,
+              certificate_address: null,
+            }),
+          (this.content_url = response.data.content_url)
       }
     },
 
