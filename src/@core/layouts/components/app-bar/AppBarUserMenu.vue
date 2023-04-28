@@ -166,9 +166,9 @@
       <!-- Logout -->
       <v-list-item @click="logout()">
         <v-list-item-icon class="me-2">
-          <!-- <v-icon size="22">
-            {{ $store.state + schoolLogo }}
-          </v-icon> -->
+          <v-icon size="22">
+            {{ content_url + schoolLogo }}
+          </v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>تسجيل خروج</v-list-item-title>
@@ -200,7 +200,8 @@ export default {
     const { router } = useRouter()
     const userData = JSON.parse(localStorage.getItem('results'))
 
-    const schoolLogo = userData.school_img
+    const schoolLogo = userData.school_logo
+    const content_url = userData.content_url
 
     const logoutUser = () => {
       // Remove userData from localStorage
@@ -223,7 +224,7 @@ export default {
       logoutUser,
       userData,
       schoolLogo,
-
+      content_url,
       icons: {
         mdiAccountOutline,
         mdiEmailOutline,

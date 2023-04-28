@@ -59,4 +59,5 @@
     "npm.packageManager": "yarn",
     "html.format.preserveNewLines": false,
     "html.format.unformatted": "",
+    "vue.features.codeActions.enable": false,
 }

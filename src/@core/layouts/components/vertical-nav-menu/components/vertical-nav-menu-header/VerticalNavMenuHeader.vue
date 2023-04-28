@@ -2,8 +2,8 @@
   <div class="vertical-nav-header d-flex align-center justify-space-between ps-6 pe-5 pt-5 pb-2">
     <router-link to="/home" class="d-flex align-center text-decoration-none">
       <v-avatar size="40px" color="primary" class="v-avatar-light-bg primary--text ml-1">
-        <v-img v-if="schoolLogo" :src="content_url + schoolLogo"></v-img>
-        <v-img v-else :src="require('@/assets/images/avatars/1.png')"></v-img>
+        <v-img  :src="content_url + schoolLogo"></v-img>
+        <!-- <v-img v-else :src="require('@/assets/images/avatars/1.png')"></v-img> -->
       </v-avatar>
       <v-slide-x-transition>
         <div>
@@ -56,7 +56,7 @@ export default {
 
     const schoolName = results.school_name
     const content_url = results.content_url
-    const schoolLogo = results.school_img
+    const schoolLogo = results.school_logo
 
     return {
       menuIsVerticalNavMini,

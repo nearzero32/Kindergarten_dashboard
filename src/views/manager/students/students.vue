@@ -12,8 +12,11 @@
               <v-btn tile color="primary" class="ml-2 mb-4 mb-md-0 mb-sm-0" :block="isScreenXs" @click="goToAddPage">
                 اضافة طالب <v-icon right> fa-plus </v-icon>
               </v-btn>
-              <v-btn tile color="success" :block="isScreenXs" :loading="xlsxData.downloadLoading"
+              <v-btn tile color="success" class="ml-2 mb-4 mb-md-0 mb-sm-0" :block="isScreenXs" :loading="xlsxData.downloadLoading"
                 @click="handleDownload"> تحميل اكسل <v-icon right> fa-download </v-icon>
+              </v-btn>
+              <v-btn tile color="warning" class="ml-2 mb-4 mb-md-0 mb-sm-0" :block="isScreenXs" @click="goToPrintPage">
+                طباعة الطلاب <v-icon right> fa-print </v-icon>
               </v-btn>
             </div>
           </v-col>
@@ -329,6 +332,7 @@ export default {
 
         { text: 'حالة الحساب', value: 'isAccountDisabled' },
         { text: 'البيانات', value: 'isAccountUploadedFile' },
+        { text: 'تاريخ الانتساب', value: 'createdAt' },
         { text: 'العمليات', value: 'actions', sortable: false },
       ],
       studentsData: [],
@@ -567,6 +571,13 @@ export default {
         })
         this.xlsxData.downloadLoading = false
       })
+    },
+
+    goToPrintPage() {
+      let routeData = this.$router.resolve({ name: 'printStudents' })
+      window.open(routeData.href, '_blank')
+
+      localStorage.setItem('studentsInvoice', JSON.stringify(this.studentsData))
     },
 
     formatJson(filterVal, jsonData) {

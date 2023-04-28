@@ -1496,6 +1496,28 @@ class Api {
   }
 
 
+  // school register
+  async getRegister({ student_class, page, limit, search }) {
+    return axios
+      .get(`/school/register/student_class/${student_class}?page=${page}&limit=${limit}&search=${search}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
+  async removeRegister(id) {
+    return axios
+      .delete(`/school/register/id/${id}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
 }
 
 export default new Api()

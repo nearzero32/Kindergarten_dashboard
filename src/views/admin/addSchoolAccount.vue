@@ -61,7 +61,7 @@
         </div>
       </v-card>
     </v-container>
-    <!--- Dailog for show info to user-->
+    <!--- Dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
