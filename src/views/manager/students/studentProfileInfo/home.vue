@@ -8,15 +8,18 @@
           <img v-if="teacherData.account_img" :src="content_url + teacherData.account_img" alt="" width="200"
             height="200" />
           <img v-else src="../../../../assets/img/default_profile.png" alt="" width="200" height="200" />
-          <!-- <div>
+          <div>
             <v-btn color="primary" class="mt-2" @click="goToAbsence"> عرض الغيابات والحضور </v-btn>
           </div>
           <div>
             <v-btn color="primary" class="mt-2" @click="goToNotificatoin"> عرض الاشعارات </v-btn>
           </div>
           <div>
-            <v-btn color="primary" class="mt-2" @click="goToExams"> عرض الامتحانات والدرجات </v-btn>
-          </div> -->
+            <v-btn color="warning" class="mt-2" @click="goToBills" v-if="account_type === 'manager'"> عرض الحساب </v-btn>
+          </div>
+          <div>
+            <v-btn color="success" class="mt-2" @click="goToPrintPage"> طباعة </v-btn>
+          </div>
         </v-col>
         <v-col md="5" sm="12" cols="12">
           <!-- <div class="mb-2 d-flex justify-center">
@@ -200,12 +203,14 @@ export default {
       isPageNotLoading: true,
       featuredFingerId: 1,
       content_url: null,
+      account_type: null,
     }
   },
   created() {
     const resultsLocalStorage = JSON.parse(localStorage.getItem('results'))
     this.featuredFingerId = resultsLocalStorage.features_finger_id
     this.getTeacherDataAxios()
+    this.account_type = JSON.parse(localStorage.getItem('results')).account_type
   },
 
   methods: {
@@ -221,7 +226,6 @@ export default {
       } else {
         this.isPageNotLoading = true
         this.teacherData = response.data.results
-
         ;(this.account_document = response.data.results.account_document
           ? response.data.results.account_document
           : {
@@ -240,14 +244,20 @@ export default {
     },
     goToNotificatoin() {
       this.$router.push(
-        `/notificationForStudent/${this.teacherData.account_division}/${this.$route.params.id}/${this.$route.params.name}`,
+        `/notificationForStudent/${this.teacherData.account_division_current._id}/${this.$route.params.id}/${this.$route.params.name}`,
       )
     },
-    goToExams() {
-      this.$router.push(
-        `/examForStudent/studentId/${this.$route.params.id}/studentName/${this.$route.params.name}/classSchoolId/${this.teacherData.account_division}`,
-      )
+    goToBills() {
+      this.$router.push(`/studentBills/studentId/${this.$route.params.id}/studentName/${this.$route.params.name}`)
     },
+
+    goToPrintPage() {
+      let routeData = this.$router.resolve({ name: 'printOneStudents' })
+      window.open(routeData.href, '_blank')
+
+      localStorage.setItem('printOneStudents', JSON.stringify(this.teacherData))
+    },
+
     showDialogfunction(bodyText, color) {
       this.dialogData.open = true
       this.dialogData.bodyText = bodyText

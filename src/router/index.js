@@ -179,6 +179,97 @@ const routes = [
     },
   },
 
+  //student bills
+  {
+    path: '/studentBills/studentId/:studentId/studentName/:studentName',
+    name: 'studentBills',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "selectClassSchool" */ '@/views/manager/students/student_account/student_bills.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  //student bills
+  {
+    path: '/studentBills/showBills/student_id/:student_id/student_name/:student_name/showDetails/id/:id/name/:name',
+    name: 'studentPayments',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "selectClassSchool" */ '@/views/manager/students/student_account/student_payment.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
+  // one student print
+  {
+    path: '/printOneStudents',
+    name: 'printOneStudents',
+    component: () =>
+      import('@/views/manager/students/print/invoiceOneStudent.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' ||
+          JSON.parse(localStorage.getItem('results')).account_type === 'accountantPrivilege')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
+    },
+  },
+
+  // studentBillDetailsInvoice
+  {
+    path: '/studentBillDetailsInvoice',
+    name: 'studentBillDetailsInvoice',
+    component: () =>
+      import('@/views/manager/students/student_account/invoice.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' ||
+          JSON.parse(localStorage.getItem('results')).account_type === 'accountantPrivilege')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
+    },
+  },
+
   //deletedStudent
   {
     path: '/deletedStudent',

@@ -1066,6 +1066,24 @@ class Api {
       })
   }
 
+  async getNotificationStudent({ account_id, class_school, page, limit }) {
+
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+    return axios
+      .post(`/notification/getForStudent`, {
+        class_school,
+        account_id,
+        page,
+        limit,
+      })
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
   async addNotification(formData) {
 
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')

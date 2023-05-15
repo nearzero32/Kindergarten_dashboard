@@ -5,9 +5,9 @@
         <h1 class="text-center subtitle-4 black--text"> الاشعارات </h1>
         <h2 class="text-center subtitle-5 black--text"> {{ this.$route.params.student_name }} </h2>
         <h3 class="text-center subtitle-5 black--text"> {{ `عدد الاشعارات ${table.totalTeacherData}` }} </h3>
-        <v-btn tile color="success" :loading="xlsxData.downloadLoading" :block="isScreenXs"
+        <!-- <v-btn tile color="success" :loading="xlsxData.downloadLoading" :block="isScreenXs"
           @click="getAllNotificationDataAxios"> تحميل اكسل <v-icon right> fa-download </v-icon>
-        </v-btn>
+        </v-btn> -->
         <v-row class="mt-2">
           <v-col cols="12">
             <v-data-table :headers="table.headers" loading-text="جاري التحميل ... الرجاء الانتظار"
@@ -19,22 +19,24 @@
                   tableOptions.itemsPerPage + props.index + 1
               }} </template>
               <template v-slot:item.notifications_type="{ item }">
-                <span v-if="item.notifications_type == 'homework'">واجب</span>
-                <span v-else-if="item.notifications_type == 'message'">رسالة</span>
-                <span v-else-if="item.notifications_type == 'report'">تقارير</span>
-                <span v-else-if="item.notifications_type == 'finger'">بصمة</span>
-                <span v-else>تبليغ</span>
+                <span>{{ item.notifications_type }}</span>
+              </template>
+              <template v-slot:item.sender="{ item }">
+                <span>{{ item.sender.account_name }}</span>
               </template>
               <template v-slot:item.receiver="{ item }">
-                <span style="color: #000">{{ showRecieverType(item.receiverType) }}</span>
-                <ul v-if="item.receiverType === 'class_school'">
-                  <li v-for="(user, index) in item.receiver" :key="index"> {{ user.classes_name + "_" +
-                      user.class_school_leader
+                <span style="color: #000">{{ item.receiver }}</span>
+                <ul v-if="item.receiver === 'صفوف وشعب'">
+                  <li v-for="(user, index) in item.notifications_class_school_id" :key="index"> {{ user.class_name + "_"
+                      + user.leader
                   }} </li>
                 </ul>
-                <ul v-else>
-                  <li v-for="(user, index) in item.receiver" :key="index"> {{ user.account_name }} </li>
+                <ul v-else-if="item.receiver === 'طلاب' || item.receiver === 'سائقين' || item.receiver === 'اساتذة'">
+                  <li v-for="(user, index) in item.notifications_student_id" :key="index"> {{ user.account_name }} </li>
                 </ul>
+                <!-- <ul v-else>
+              <li v-for="(user, index) in item.receiver" :key="index"> {{ user.account_name }} </li>
+            </ul> -->
               </template>
               <template v-slot:item.notifications_link="{ item }">
                 <v-btn v-if="item.notifications_link" color="primary" small @click="goToLink(item.notifications_link)">
@@ -44,20 +46,9 @@
                 <v-btn v-if="item.notifications_pdf" color="warning" small @click="goToPdf(item.notifications_pdf)">
                   تحميل </v-btn>
               </template>
-              <template v-slot:item.notifications_img1="{ item }">
-                <img v-if="item.notifications_img1" class="teacher_image_table"
-                  :src="$store.state.FileUrl + item.notifications_img1" alt width="50" height="50"
-                  @click="showImage(item.notifications_img1)" />
-              </template>
-              <template v-slot:item.notifications_img2="{ item }">
-                <img v-if="item.notifications_img2" class="teacher_image_table"
-                  :src="$store.state.FileUrl + item.notifications_img2" alt width="50" height="50"
-                  @click="showImage(item.notifications_img2)" />
-              </template>
-              <template v-slot:item.notifications_img3="{ item }">
-                <img v-if="item.notifications_img2" class="teacher_image_table"
-                  :src="$store.state.FileUrl + item.notifications_img3" alt width="50" height="50"
-                  @click="showImage(item.notifications_img3)" />
+              <template v-slot:item.notifications_imgs="{ item }">
+                <img v-for="(img, index) in item.notifications_imgs" :key="index" class="teacher_image_table"
+                  :src="content_url + img" alt width="50" height="50" @click="showImage(img)" />
               </template>
               <template v-slot:item.actions="{ item }">
                 <v-tooltip bottom>
@@ -122,6 +113,8 @@
   </div>
 </template>
 <script>
+import Api from '@/api/api'
+
 export default {
   data() {
     return {
@@ -138,6 +131,8 @@ export default {
       },
 
       allNotificationData: [],
+
+      content_url: null,
 
       xlsxData: {
         list: null,
@@ -184,14 +179,11 @@ export default {
             value: 'notifications_title',
           },
           { text: 'النوع', sortable: false, value: 'notifications_type' },
-          { text: 'المرسل', sortable: false, value: 'account_name' },
+          { text: 'المرسل', sortable: false, value: 'sender' },
           { text: 'المستلم', sortable: false, value: 'receiver' },
           { text: 'الرابط', sortable: false, value: 'notifications_link' },
-
           { text: 'الملفات', sortable: false, value: 'notifications_pdf' },
-          { text: 'الصورة1', sortable: false, value: 'notifications_img1' },
-          { text: 'الصورة2', sortable: false, value: 'notifications_img2' },
-          { text: 'الصورة3', sortable: false, value: 'notifications_img3' },
+          { text: 'الصور', sortable: false, value: 'notifications_imgs' },
           {
             text: 'الوصف',
             sortable: false,
@@ -255,7 +247,7 @@ export default {
   //   this.getTeacherDataAxios()
   // },
   methods: {
-    getTeacherDataAxios() {
+    async getTeacherDataAxios() {
       // let search = this.table.search;
       this.table.loading = true
       let { page, itemsPerPage } = this.tableOptions
@@ -271,20 +263,23 @@ export default {
         itemsPerPage = 10
       }
 
-      this.axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
-      this.axios
-        .get(
-          `student/notification/class_school/${this.$route.params.class_school}/student_id/${this.$route.params.student_id}/page/${page}/limit/${itemsPerPage}`,
-        )
-        .then(Response => {
-          this.table.loading = false
-          this.table.teacherData = Response.data.results
-          this.table.totalTeacherData = Response.data.count
-        })
-        .catch(error => {
-          this.table.loading = false
-          console.log('error', error)
-        })
+      const response = await Api.getNotificationStudent({
+        account_id: this.$route.params.student_id,
+        class_school: this.$route.params.class_school,
+        page,
+        limit: itemsPerPage,
+      })
+      if (response.status === 401) {
+        this.$store.dispatch('submitLogout')
+      } else if (response.status === 500) {
+        this.table.loading = false
+        this.showDialogfunction(response.data.results, '#FF5252')
+      } else {
+        this.table.loading = false
+        this.table.teacherData = response.data.results.data
+        this.table.totalTeacherData = response.data.results.count
+        this.content_url = response.data.content_url
+      }
     },
 
     showImage(image) {
@@ -297,27 +292,22 @@ export default {
       this.dialogDelete = true
     },
 
-    deleteItemConfirm() {
+    async deleteItemConfirm() {
       this.deleteItemLoading = true
-      this.axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
-      this.axios
-        .delete(`notifications/${this.deletedItem.notifications_id}`)
-        .then(Response => {
-          if (Response.data.error === false) {
-            this.deleteItemLoading = false
-            this.dialogDelete = false
-            this.getTeacherDataAxios()
-            this.showDialogfunction(Response.data.results, 'primary')
-          } else {
-            this.showDialogfunction(Response.data.results, '#FF8A80')
-          }
-        })
-        .catch(error => {
-          this.deleteItemLoading = false
-          this.dialogDelete = false
-          this.showDialogfunction('حصلت مشكلة يرجى المحاولة مجددا', '#FF8A80')
-          console.log('error', error)
-        })
+
+      const response = await Api.removeNotification(this.deletedItem._id)
+
+      if (response.status === 401) {
+        this.$store.dispatch('submitLogout')
+      } else if (response.status === 500) {
+        this.deleteItemLoading = false
+        this.showDialogfunction(response.data.results, '#FF5252')
+      } else {
+        this.deleteItemLoading = false
+        this.dialogDelete = false
+        this.getTeacherDataAxios()
+        this.showDialogfunction(response.data.results, 'primary')
+      }
     },
 
     showDialogfunction(bodyText, color) {
@@ -386,29 +376,6 @@ export default {
 
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
-    },
-
-    showRecieverType(receiverType) {
-      if (receiverType === 'student') {
-        return 'طلاب: '
-      }
-      if (receiverType === 'teacher') {
-        return 'اساتذة: '
-      }
-
-      if (receiverType === 'driver') {
-        return 'سائقين: '
-      }
-
-      if (receiverType === 'manager') {
-        return 'مدير'
-      }
-
-      if (receiverType === 'class_school') {
-        return 'صفوف وشعب: '
-      }
-
-      return 'كل الطلاب'
     },
   },
 }
