@@ -138,6 +138,13 @@ let index = [{
   to: 'schoolReq',
 },
 
+// schoolWorkReq
+{
+  title: 'طلبات التعيين',
+  icon: 'fa-file-invoice',
+  to: 'schoolWorkReq',
+},
+
 //connectUs
 {
   title: 'اتصل بنا',

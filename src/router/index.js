@@ -750,6 +750,27 @@ const routes = [
     },
   },
 
+  // schoolWorkReq
+  {
+    path: '/schoolWorkReq',
+    name: 'schoolWorkReq',
+    component: () =>
+      import('@/views/manager/schoolReq/schoolWorkReq.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
   {
     path: '/schoolReqDetails',
     name: 'schoolReqDetails',
