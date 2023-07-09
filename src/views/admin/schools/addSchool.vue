@@ -10,15 +10,9 @@
               <v-text-field v-model="teacherData.school_name" :rules="Rules.school_name" dense label="اسم الروضة"
                 outlined></v-text-field>
             </v-col>
-            <!-- phone1 -->
+            <!-- phone -->
             <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_phone1" :rules="Rules.phone" dense label="الهاتف الاول"
-                outlined>
-              </v-text-field>
-            </v-col>
-            <!-- phone2 -->
-            <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_phone2" dense label="الهاتف الثاني" outlined>
+              <v-text-field v-model="teacherData.school_phone" :rules="Rules.phone" dense label="الهاتف" outlined>
               </v-text-field>
             </v-col>
             <!-- location -->
@@ -26,8 +20,6 @@
               <v-text-field v-model="teacherData.school_location" :rules="Rules.location" dense label="الموقع" outlined>
               </v-text-field>
             </v-col>
-          </v-row>
-          <v-row>
             <!-- notifications_img1 -->
             <v-col md="6" sm="6" cols="12">
               <div class="d-flex justify-space-around align-center">
@@ -50,8 +42,6 @@
                   width="70" height="70" />
               </div>
             </v-col>
-          </v-row>
-          <v-row>
             <!-- facebook -->
             <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.school_facebook" dense label="فيسبوك (اختياري)" outlined>
@@ -66,9 +56,9 @@
             <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.school_website" dense label="الويب (اختياري)" outlined></v-text-field>
             </v-col>
-            <!-- youtube -->
+            <!-- google_map -->
             <v-col sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_youtube" dense label="يوتيوب (اختياري)" outlined>
+              <v-text-field v-model="teacherData.school_google_map" dense label="خرائط غوغل (اختياري)" outlined>
               </v-text-field>
             </v-col>
             <!-- currency -->
@@ -80,12 +70,88 @@
             <v-col cols="12">
               <h3 class="text-center"> الخصائص </h3>
             </v-col>
-            <!-- description -->
-            <v-col cols="12" class="mt-5">
-              <v-textarea v-model="teacherData.school_description" :rules="Rules.description" name="input-7-1"
-                label="الوصف" append-icon="fa-scroll" outlined></v-textarea>
+            <!-- features_finger_id -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_finger_id" label="البصمة" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_absence -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_absence" label="الحضور" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_teachers_absence -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_teachers_absence" label="حضور الاساتذة" color="primary"
+                hide-details></v-checkbox>
+            </v-col>
+            <!-- features_review -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_review" label="التقييم" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_dailyExam -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_dailyExam" label="الامتحانات اليومية" color="primary"
+                hide-details></v-checkbox>
+            </v-col>
+            <!-- features_drivers -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_drivers" label="السواق" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_exams -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_exams" label="الامتحانات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_notifications -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_notifications" label="الاشعارات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_schedule_weekly -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_schedule_weekly" label="الجدول الاسبوعي" color="primary"
+                hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_subject -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_subject" label="المواد الدراسية" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_degrees -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_degrees" label="الدرجات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_employee -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_employee" label="الموظفين" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_live -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_live" label="البث المباشر" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_latest_news -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_latest_news" label="اخر الاخبار" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_accountant -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_accountant" label="الحسابات" color="primary" hide-details>
+              </v-checkbox>
             </v-col>
           </v-row>
+          <!-- description -->
+          <v-col cols="12" class="mt-5">
+            <v-textarea v-model="teacherData.school_description" :rules="Rules.description" name="input-7-1"
+              label="الوصف" append-icon="fa-scroll" outlined></v-textarea>
+          </v-col>
         </v-form>
         <div class="d-flex justify-center mt-2">
           <v-btn :loading="addBtnLoading" :disabled="!isFormValid" color="primary" @click="submitAdd()"> اضافة </v-btn>
@@ -159,11 +225,27 @@ export default {
         school_logo: null,
         school_img: null,
         school_whatsapp: '',
-        school_phone1: '',
-        school_phone2: '',
-        school_youtube: '',
+        school_phone: '',
+        school_google_map: '',
         school_location: '',
         school_currency: 'IQD',
+        features_finger_id: true,
+        features_absence: true,
+        features_teachers_absence: true,
+        features_review: true,
+        features_dailyExam: true,
+        features_drivers: true,
+        features_gps: true,
+        features_chat: true,
+        features_exams: true,
+        features_accountant: true,
+        features_notifications: true,
+        features_subject: true,
+        features_latest_news: true,
+        features_degrees: true,
+        features_employee: true,
+        features_live: true,
+        features_schedule_weekly: true,
       },
 
       addBtnLoading: false,
@@ -186,16 +268,13 @@ export default {
       } else {
         this.addBtnLoading = true
 
-        if ((img1.files).length >= 1) {
+        if (img1.files.length >= 1) {
           this.teacherData.school_logo = img1.files[0]
         }
 
-        if ((img2.files).length >= 1) {
+        if (img2.files.length >= 1) {
           this.teacherData.school_img = img2.files[0]
         }
-
-
-
 
         const formData = convertModelToFormData(this.teacherData)
 
@@ -284,6 +363,14 @@ export default {
       formData.append('google_map', this.teacherData.google_map)
       formData.append('location', this.teacherData.location)
       formData.append('currency', this.teacherData.currency)
+      formData.append('features_finger_id', this.teacherData.features_finger_id)
+      formData.append('features_absence', this.teacherData.features_absence)
+      formData.append('features_teachers_absence', this.teacherData.features_teachers_absence)
+      formData.append('features_review', this.teacherData.features_review)
+      formData.append('features_dailyExam', this.teacherData.features_dailyExam)
+      formData.append('features_drivers', this.teacherData.features_drivers)
+      formData.append('features_exams', this.teacherData.features_exams)
+      formData.append('features_notifications', this.teacherData.features_notifications)
     },
   },
 }

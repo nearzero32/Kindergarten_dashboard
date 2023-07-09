@@ -2,7 +2,7 @@
   <div class="team">
     <v-container class="indigo lighten-5 my-5">
       <v-card class="white pa-3">
-        <h1 class="text-center subtitle-4 black--text"> الروضة </h1>
+        <h1 class="text-center subtitle-4 black--text"> الروضات </h1>
         <v-row class="mt-5">
           <v-col md="3" cols="12">
             <div class="d-md-flex">
@@ -121,7 +121,7 @@
               <v-row>
                 <!-- schholName -->
                 <v-col cols="12" md="6">
-                  <v-text-field v-model="editedItem.school_name" label="اسم المدرسة" outlined dense required>
+                  <v-text-field v-model="editedItem.school_name" label="اسم الروضة" outlined dense required>
                   </v-text-field>
                 </v-col>
                 <!-- location -->
@@ -515,15 +515,15 @@ export default {
       if (logoSelected.value === '' && this.editedItem.logo == null) {
         // if there is no logo and no selected logo
         this.editDailog.loading = false
-        this.showDialogfunction('يجب اختيار صورة لوكو للمدرسة', '#FF8A80')
+        this.showDialogfunction('يجب اختيار صورة لوكو للروضة', '#FF8A80')
       } else {
         // if there is no logo and no image
         /* eslint-disable */
         const image = this.editedItem.img
           ? this.editedItem.img
           : imageSelected.files[0] === undefined
-            ? null
-            : imageSelected.files[0]
+          ? null
+          : imageSelected.files[0]
         const logo = this.editedItem.logo ? this.editedItem.logo : logoSelected.files[0]
 
         await this.formAppend(formData, logo, image)
@@ -561,10 +561,7 @@ export default {
     async submitEditNote() {
       this.editNoteDailog.loading = true
 
-      const response = await adminApi.editNoteSchool(
-        this.editedNoteItem._id,
-        this.editedNoteItem.school_admin_note,
-      )
+      const response = await adminApi.editNoteSchool(this.editedNoteItem._id, this.editedNoteItem.school_admin_note)
 
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
@@ -676,7 +673,7 @@ export default {
         {
           query: { search: this.table.search },
         },
-        () => { },
+        () => {},
       )
     },
 
@@ -698,7 +695,7 @@ export default {
 
     handleDownload() {
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['اسم المدرسة', 'عدد الطلاب', 'الكادر التدريسي', 'الهاتف', 'العملة', 'الموقع', 'ملاحظة الادمن']
+        const tHeader = ['اسم الروضة', 'عدد الطلاب', 'الكادر التدريسي', 'الهاتف', 'العملة', 'الموقع', 'ملاحظة الادمن']
         const filterVal = [
           'school_name',
           'student_count',

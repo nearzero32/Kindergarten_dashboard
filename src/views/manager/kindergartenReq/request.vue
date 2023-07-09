@@ -1,9 +1,82 @@
 <template>
   <div class="team">
+    <v-container>
+      <v-row class="mb-2">
+      <v-col cols="12" sm="6" md="2">
+        <v-card>
+          <v-card-text class="d-flex align-center justify-space-between pa-4">
+            <div>
+              <h2 class="font-weight-semibold mb-1">
+                {{ NG }}
+              </h2>
+              <span>NG</span>
+            </div>
+
+            <v-icon size="30" color="primary" class="rounded-0">
+              fa-school
+            </v-icon>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="2">
+        <v-card>
+          <v-card-text class="d-flex align-center justify-space-between pa-4">
+            <div>
+              <h2 class="font-weight-semibold mb-1">
+                {{ KG1 }}
+              </h2>
+              <span>KG1</span>
+            </div>
+
+            <v-icon size="30" color="secondary" class="rounded-0">
+              fa-school
+            </v-icon>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="2">
+        <v-card>
+          <v-card-text class="d-flex align-center justify-space-between pa-4">
+            <div>
+              <h2 class="font-weight-semibold mb-1">
+                {{ KG2 }}
+              </h2>
+              <span>KG2</span>
+            </div>
+
+            <v-icon size="30" color="warning" class="rounded-0">
+              fa-school
+            </v-icon>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6" md="2">
+        <v-card>
+          <v-card-text class="d-flex align-center justify-space-between pa-4">
+            <div>
+              <h2 class="font-weight-semibold mb-1">
+                {{ PG }}
+              </h2>
+              <span>PG</span>
+            </div>
+
+            <v-icon size="30" color="info" class="rounded-0">
+              fa-school
+            </v-icon>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    </v-container>
+
     <v-container class="indigo lighten-5">
       <v-card class="white pa-3">
-        <h1 class="text-center subtitle-4 black--text"> طلبات التسجيل في الاستمارة الالكترونية </h1>
+        <h1 class="text-center subtitle-4 black--text"> طلبات التسجيل في الاستمارة الالكترونية للروضة</h1>
         <v-row class="mt-5">
+          <v-col md="3" xs="12">
+            <v-select v-model="studentClassSelected" :items="classes" label="اختيار صف" outlined dense
+              @change="getClasses" clearable></v-select>
+          </v-col>
            <v-spacer></v-spacer>
            <v-col md="4" cols="12">
             <div class="d-flex flex-row">
@@ -29,12 +102,12 @@
                   :src="content_url + item.image" alt width="50" height="50"
                   @click="showImage(item.image)" />
                 </template>
-                <template v-slot:item.is_staying_with_his_fathers="{ item }">
-                  <v-icon v-if="item.is_staying_with_his_fathers" color="green"> fa-check </v-icon>
+                <template v-slot:item.liveWithParents="{ item }">
+                  <v-icon v-if="item.liveWithParents" color="green"> fa-check </v-icon>
                   <v-icon v-else color="red"> fa-times </v-icon>
                 </template>
                 <template v-slot:item.address="{ item }">
-                  <span>{{ item.address + ' - ' + item.address_m + ' - ' + item.address_z + ' - ' + item.address_d }}</span>
+                  <span>{{ item.address + ' - ' + (item.house ? item.house : '') + ' - ' + (item.alley ? item.alley : '') + ' - ' + (item.locality ? item.locality : '') }}</span>
                 </template>
               <template v-slot:item.actions="{ item }">
                 <v-tooltip bottom>
@@ -91,8 +164,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- End delete dailog -->
-    <!--- Dialog for show info to user-->
+    <!-- End delete dialog -->
+    <!--- dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
@@ -106,7 +179,7 @@
   </div>
 </template>
 <script>
-import school_work_register_api from '@/api/school_work_register'
+import Api from '@/api/api'
 
 export default {
   data() {
@@ -132,6 +205,24 @@ export default {
       deletedItem: {},
       tableOptions: {},
       isScreenXs: false,
+      classes: [
+        {
+          text: 'NG',
+          value: 'NG',
+        },
+        {
+          text: 'KG1',
+          value: 'KG1',
+        },
+        {
+          text: 'KG2',
+          value: 'KG2',
+        },
+        {
+          text: 'PG',
+          value: 'PG',
+        },
+      ],
 
       table: {
         totalTeacherData: 0,
@@ -148,18 +239,17 @@ export default {
             value: '_id',
           },
           {
-            text: 'الاسم',
+            text: 'اسم الطالب',
             sortable: false,
             value: 'name',
           },
           { text: 'الصورة', sortable: false, value: 'image' },
-          { text: 'تاريخ الميلاد', sortable: false, value: 'birthday' },
+          { text: 'المرحلة الدراسية', sortable: false, value: 'class' },
           { text: 'العنوان - م - ز - د', sortable: false, value: 'address' },
-          { text: 'اقرب نقطة دالة', sortable: false, value: 'nearest_landmark' },
-          { text: 'الجامعة', sortable: false, value: 'college' },
-          { text: 'الهاتف1', sortable: false, value: 'phone1' },
-          { text: 'الهاتف2', sortable: false, value: 'phone2' },
-          { text: 'الحالة الاجتماعية', sortable: false, value: 'social_status' },
+          { text: 'عدد الاخوة', sortable: false, value: 'brotherNumbers' },
+          { text: 'هل يقيم مع الابوين', sortable: false, value: 'liveWithParents' },
+          { text: 'هاتف الاب', sortable: false, value: 'fatherPhone' },
+          { text: 'هاتف الام', sortable: false, value: 'motherPhone' },
           { text: 'التاريخ', sortable: false, value: 'createdAt' },
           {
             text: 'العمليات',
@@ -179,12 +269,10 @@ export default {
       },
 
       content_url: null,
-      one: 1,
-      two: 1,
-      three: 1,
-      four: 1,
-      five: 1,
-      six: 1,
+      NG: 1,
+      KG1: 1,
+      KG2: 1,
+      PG: 1,
     }
   },
   watch: {
@@ -213,6 +301,12 @@ export default {
 
       // immediate: true,
     },
+    tableModifier: {
+      deep: true,
+      handler() {
+        this.getTeacherDataAxios()
+      },
+    },
   },
 
   // async mounted() {
@@ -234,7 +328,8 @@ export default {
         itemsPerPage = 10
       }
 
-      const response = await school_work_register_api.get({
+      const response = await Api.getRegisterKindergarten({
+        currentStage: this.studentClassSelected,
         page: page,
         limit: itemsPerPage,
         search,
@@ -248,6 +343,10 @@ export default {
         this.table.loading = false
         this.table.teacherData = response.data.results.data
         this.table.totalTeacherData = response.data.results.count
+        this.NG = response.data.results.NG
+        this.KG1 = response.data.results.KG1
+        this.KG2 = response.data.results.KG2
+        this.PG = response.data.results.PG
         this.content_url = response.data.content_url
       }
     },
@@ -260,10 +359,14 @@ export default {
       this.dialogDelete = true
     },
 
+    getClasses() {
+      this.getTeacherDataAxios()
+    },
+
     async deleteItemConfirm() {
       this.deleteItemLoading = true
 
-      const response = await school_work_register_api.remove(this.deletedItem._id)
+      const response = await Api.removeRegisterKindergarten(this.deletedItem._id)
 
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
@@ -277,10 +380,42 @@ export default {
         this.showDialogfunction(response.data.results, 'primary')
       }
     },
+    goToAddPage() {
+      this.$router.push('/messages/addMessages')
+    },
     showDialogfunction(bodyText, color) {
       this.dialogData.open = true
       this.dialogData.bodyText = bodyText
       this.dialogData.color = color
+    },
+    getAllNotificationDataAxios() {
+      this.xlsxData.downloadLoading = true
+      const page = 1
+      const itemsPerPage = 100000000
+      this.axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+      this.axios
+        .get(
+          `notifications/type/${this.tableModifier.notificationTypeSelected}/startDate/${this.tableModifier.startDate}/endDate/${this.tableModifier.endDate}/page/${page}/limit/${itemsPerPage}`,
+        )
+        .then(Response => {
+          if (Response.data.results === 'غير مصرح') {
+            this.$store.dispatch('submitLogout')
+          } else {
+            this.allNotificationData = Response.data.results
+            this.handleDownload()
+          }
+        })
+        .catch(error => {
+          this.xlsxData.downloadLoading = false
+          this.showDialogfunction(response.data.results, '#FF5252')
+          console.log('error', error)
+        })
+    },
+    goToLink(file) {
+      window.open(file)
+    },
+    goToPdf(file) {
+      window.open(this.$store.state.FileUrl + file)
     },
 
     search() {
@@ -292,14 +427,39 @@ export default {
       )
     },
 
+    handleDownload() {
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['العنوان', 'النوع', 'المرسل', 'الرابط', 'الوصف', 'التاريخ']
+        const filterVal = [
+          'notifications_title',
+          'notifications_type_ar',
+          'account_name',
+          'notifications_link',
+          'notifications_description',
+          'created_at',
+        ]
+
+        // const { list } = this
+        const data = this.formatJson(filterVal, this.allNotificationData)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: this.xlsxData.filename,
+          autoWidth: this.xlsxData.autoWidth,
+          bookType: this.xlsxData.bookType,
+        })
+        this.xlsxData.downloadLoading = false
+      })
+    },
+
     showDetails(item) {
       let data = {
         item,
         content_url: this.content_url,
       }
 
-      localStorage.setItem('schoolWorkReqMoreDetails', JSON.stringify(data))
-      this.$router.push('/schoolWorkReqMoreDetails')
+      localStorage.setItem('kindergartenReqDetails', JSON.stringify(data))
+      this.$router.push('/kindergartenReqDetails')
     },
   },
 }

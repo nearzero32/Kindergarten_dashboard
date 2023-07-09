@@ -74,6 +74,13 @@ let index = [{
   ],
 },
 
+// drivers
+{
+  title: 'السواق',
+  icon: 'fa-bus',
+  to: 'drivers',
+},
+
 //notification
 {
   title: 'الاشعارات',
@@ -136,6 +143,13 @@ let index = [{
   title: 'طلبات المدرسة',
   icon: 'fa-file',
   to: 'schoolReq',
+},
+
+// kindergartenReq
+{
+  title: 'طلبات الروضة',
+  icon: 'fa-file',
+  to: 'kindergartenReq',
 },
 
 // schoolWorkReq

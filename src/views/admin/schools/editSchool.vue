@@ -11,16 +11,9 @@
               <v-text-field v-model="teacherData.school_name" :rules="Rules.school_name" dense label="اسم الروضة"
                 outlined></v-text-field>
             </v-col>
-            <!-- phone1 -->
+            <!-- phone -->
             <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_phone1" :rules="Rules.phone" dense label="الهاتف الاول"
-                outlined>
-              </v-text-field>
-            </v-col>
-            <!-- phone2 -->
-            <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_phone2" :rules="Rules.phone" dense label="الهاتف الثاني"
-                outlined>
+              <v-text-field v-model="teacherData.school_phone" :rules="Rules.phone" dense label="الهاتف" outlined>
               </v-text-field>
             </v-col>
             <!-- location -->
@@ -28,8 +21,6 @@
               <v-text-field v-model="teacherData.school_location" :rules="Rules.location" dense label="الموقع" outlined>
               </v-text-field>
             </v-col>
-          </v-row>
-          <v-row>
             <!-- notifications_img1 -->
             <v-col md="6" sm="6" cols="12">
               <div class="d-flex justify-space-around align-center">
@@ -64,16 +55,107 @@
             <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.school_website" dense label="الويب (اختياري)" outlined></v-text-field>
             </v-col>
-            <!-- youtube -->
-            <v-col md="4" sm="6" cols="12">
-              <v-text-field v-model="teacherData.school_youtube" dense label="اليوتيوب (اختياري)" outlined>
+            <!-- google_map -->
+            <v-col sm="6" cols="12">
+              <v-text-field v-model="teacherData.school_google_map" dense label="خرائط غوغل (اختياري)" outlined>
               </v-text-field>
             </v-col>
             <!-- currency -->
-            <v-col md="4" sm="6" cols="12">
+            <v-col sm="6" cols="12">
               <v-select v-model="teacherData.school_currency" item-text="text" item-value="value" :items="currencyItems"
                 dense label="العملة النقدية" outlined>
               </v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <h3 class="text-center"> الخصائص </h3>
+            </v-col>
+            <!-- features_finger_id -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_finger_id" label="البصمة" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_absence -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_absence" label="الحضور" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_teachers_absence -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_teachers_absence" label="حضور الاساتذة" color="primary"
+                hide-details></v-checkbox>
+            </v-col>
+            <!-- features_review -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_review" label="التقييم" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_dailyExam -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_dailyExam" label="الامتحانات اليومية" color="primary"
+                hide-details></v-checkbox>
+            </v-col>
+            <!-- features_drivers -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_drivers" label="السواق" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_exams -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_exams" label="الامتحانات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_chat -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_chat" label="المراسلة" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_gps -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_gps" label="خرائط غوغل (gps)" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_notifications -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_notifications" label="الاشعارات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_schedule_weekly -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_schedule_weekly" label="الجدول الاسبوعي" color="primary"
+                hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_subject -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_subject" label="المواد الدراسية" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_degrees -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_degrees" label="الدرجات" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_employee -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_employee" label="الموظفين" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_live -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_live" label="البث المباشر" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_latest_news -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_latest_news" label="اخر الاخبار" color="primary" hide-details>
+              </v-checkbox>
+            </v-col>
+            <!-- features_accountant -->
+            <v-col cols="12" sm="4" md="3">
+              <v-checkbox v-model="teacherData.features_accountant" label="الحسابات" color="primary" hide-details>
+              </v-checkbox>
             </v-col>
           </v-row>
           <v-row>
@@ -158,11 +240,27 @@ export default {
         school_img: null,
         old_school_img: null,
         school_whatsapp: '',
-        school_youtube: '',
-        school_phone1: '',
-        school_phone2: '',
+        school_phone: '',
+        school_google_map: '',
         school_location: '',
         school_currency: 'IQD',
+        features_finger_id: true,
+        features_absence: true,
+        features_teachers_absence: true,
+        features_review: true,
+        features_dailyExam: true,
+        features_drivers: true,
+        features_gps: true,
+        features_chat: true,
+        features_exams: true,
+        features_accountant: true,
+        features_notifications: true,
+        features_subject: true,
+        features_latest_news: true,
+        features_degrees: true,
+        features_employee: true,
+        features_live: true,
+        features_schedule_weekly: true,
       },
 
       content_url: null,
@@ -182,8 +280,9 @@ export default {
 
   methods: {
     async getDataAxios() {
-
       const response = await adminApi.getOneSchools(this.$route.params.school_id)
+
+      console.log('response', response)
 
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
@@ -193,6 +292,25 @@ export default {
         this.teacherData = response.data.results
 
         this.content_url = response.data.content_url
+
+        this.teacherData.features_finger_id = response.data.results.school_features.features_finger_id
+        this.teacherData.features_absence = response.data.results.school_features.features_absence
+        this.teacherData.features_teachers_absence = response.data.results.school_features.features_teachers_absence
+        this.teacherData.features_review = response.data.results.school_features.features_review
+        this.teacherData.features_dailyExam = response.data.results.school_features.features_dailyExam
+        this.teacherData.features_drivers = response.data.results.school_features.features_drivers
+        this.teacherData.features_exams = response.data.results.school_features.features_exams
+        this.teacherData.features_notifications = response.data.results.school_features.features_notifications
+        this.teacherData.features_chat = response.data.results.school_features.features_chat
+        this.teacherData.features_gps = response.data.results.school_features.features_gps
+        this.teacherData.features_accountant = response.data.results.school_features.features_accountant
+        this.teacherData.features_schedule_weekly = response.data.results.school_features.features_schedule_weekly
+        this.teacherData.features_live = response.data.results.school_features.features_live
+        this.teacherData.features_subject = response.data.results.school_features.features_subject
+        this.teacherData.features_live = response.data.results.school_features.features_live
+        this.teacherData.features_degrees = response.data.results.school_features.features_degrees
+        this.teacherData.features_latest_news = response.data.results.school_features.features_latest_news
+        this.teacherData.features_employee = response.data.results.school_features.features_employee
       }
     },
 
@@ -205,18 +323,18 @@ export default {
 
       this.teacherData.old_school_logo = this.teacherData.school_logo
 
-      if ((img1.files).length >= 1) {
+      if (img1.files.length >= 1) {
         this.teacherData.school_logo = img1.files[0]
       } else {
-        delete this.teacherData.school_logo;
+        delete this.teacherData.school_logo
       }
 
       this.teacherData.old_school_img = this.teacherData.school_img
 
-      if ((img2.files).length >= 1) {
+      if (img2.files.length >= 1) {
         this.teacherData.school_img = img2.files[0]
       } else {
-        delete this.teacherData.school_img;
+        delete this.teacherData.school_img
       }
 
       const formData = convertModelToFormData(this.teacherData)
@@ -234,7 +352,6 @@ export default {
         this.teacherData.school_img = this.teacherData.old_school_img
         this.showDialogfunction(response.data.results, 'primary')
       }
-
     },
 
     cancelAdd() {
@@ -248,12 +365,11 @@ export default {
     },
 
     showLogo() {
-      if (!(this.img1Url)) {
+      if (!this.img1Url) {
         return this.content_url + this.teacherData.school_logo
       } else {
         return this.img1Url
       }
-
     },
 
     showImg() {
@@ -263,7 +379,6 @@ export default {
 
       return this.img2Url
     },
-
 
     changeImg1(event) {
       this.imgAndDivShowControll.IsDiv1Showing = false
@@ -312,7 +427,6 @@ export default {
         this.img2Url = null
       }
     },
-
   },
 }
 </script>

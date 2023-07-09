@@ -708,6 +708,72 @@ const routes = [
     },
   },
 
+  //drivers
+  {
+    path: '/drivers',
+    name: 'drivers',
+    component: () =>
+      import('@/views/manager/driver/driver.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/drivers/addDriver',
+    name: 'addDriver',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "drivers" */ '@/views/manager/driver/addDriver.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/drivers/:id/:name',
+    name: 'driversProfile',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import( /* webpackChunkName: "drivers" */ '@/views/manager/driver/driverProfile.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
+
   // fingerPrint
   {
     path: '/fingerPrint',
@@ -750,6 +816,47 @@ const routes = [
     },
   },
 
+  // kindergartenReq
+  {
+    path: '/kindergartenReq',
+    name: 'kindergartenReq',
+    component: () =>
+      import('@/views/manager/kindergartenReq/request.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
+  {
+    path: '/kindergartenReqDetails',
+    name: 'kindergartenReqDetails',
+    component: () =>
+      import('@/views/manager/kindergartenReq/moreDetails.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
   // schoolWorkReq
   {
     path: '/schoolWorkReq',
@@ -776,6 +883,26 @@ const routes = [
     name: 'schoolReqDetails',
     component: () =>
       import('@/views/manager/schoolReq/moreDetails.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+
+  {
+    path: '/schoolWorkReqMoreDetails',
+    name: 'schoolWorkReqMoreDetails',
+    component: () =>
+      import('@/views/manager/schoolReq/schoolWorkReqMoreDetails.vue'),
     beforeEnter(to, from, next) {
       if (
         localStorage.getItem('accessToken') &&

@@ -1536,6 +1536,29 @@ class Api {
         return error.response
       })
   }
+
+  // kindergarten register
+  async getRegisterKindergarten({ currentStage, page, limit, search }) {
+    return axios
+      .get(`/kindergarten/register/currentStage/${currentStage}?page=${page}&limit=${limit}&search=${search}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
+  async removeRegisterKindergarten(id) {
+    return axios
+      .delete(`/kindergarten/register/id/${id}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
 }
 
 export default new Api()

@@ -1,7 +1,7 @@
 <template>
   <div class="team">
     <v-card id="printable" class="white pa-3">
-      <h1 class="text-center subtitle-4 black--text"> معلومات طلب التسجيل للطالبة </h1>
+      <h1 class="text-center subtitle-4 black--text"> معلومات طلب التسجيل للطالب </h1>
       <h2 class="text-center subtitle-4 black--text">{{ data.student_name }}</h2>
       <v-row class="mt-5">
         <v-col md="5" sm="12" cols="12">

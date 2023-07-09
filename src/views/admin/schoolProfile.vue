@@ -2,11 +2,12 @@
   <div class="team">
     <v-container class="indigo lighten-5 my-5">
       <v-card class="white pa-3">
-        <h1 class="text-center mb-3 subtitle-4 black--text"> حساب الروضة </h1>
-        <h3 class="text-center mb-3 subtitle-4 black--text"> {{ $route.params.name }} </h3>
+        <h1 class="text-center mb-3 subtitle-4 black--text">حساب الروضة</h1>
+        <h3 class="text-center mb-3 subtitle-4 black--text">{{ $route.params.name }}</h3>
         <v-row>
           <v-col md="3" sm="3" xs="12" align-self="center">
-            <v-btn tile color="primary" @click="goToAddPage"> اضافة حساب <v-icon right small> fa-plus </v-icon>
+            <v-btn tile color="primary" @click="goToAddPage">
+              اضافة حساب <v-icon right small> fa-plus </v-icon>
             </v-btn>
           </v-col>
           <v-spacer></v-spacer>
@@ -26,28 +27,53 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-data-table :loading="table.loading" loading-text="جاري التحميل ... الرجاء الانتظار" :headers="headers"
-              :items="studentsData" :search="table.search" :items-per-page="10" item-key="account_id"
-              class="elevation-1" :footer-props="{
+            <v-data-table
+              :loading="table.loading"
+              loading-text="جاري التحميل ... الرجاء الانتظار"
+              :headers="headers"
+              :items="studentsData"
+              :search="table.search"
+              :items-per-page="10"
+              item-key="account_id"
+              class="elevation-1"
+              :footer-props="{
                 showFirstLastPage: true,
-
-              }">
-              <template slot="item.account_id" slot-scope="props"> {{ props.index + 1 }} </template>
+              }"
+            >
+              <template slot="item.account_id" slot-scope="props">
+                {{ props.index + 1 }}
+              </template>
               <template v-slot:item.account_type="{ item }">
                 <span v-if="item.account_type === 'manager'">مدير</span>
-                <span v-else-if="item.account_type === 'assistance'">سكرتير</span>
+                <span v-else-if="item.account_type === 'assistance'">اداري</span>
+                <span v-else-if="item.account_type === 'accountantPrivilege'">محاسب</span>
               </template>
               <template v-slot:item.actions="{ item }">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" class="ml-2" size="20" v-bind="attrs" v-on="on" @click="EditPassword(item)">
-                      fa-edit </v-icon>
+                    <v-icon
+                      color="primary"
+                      class="ml-2"
+                      size="20"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="EditPassword(item)"
+                    >
+                      fa-edit
+                    </v-icon>
                   </template>
                   <span>تعديل</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="#FF5252" v-bind="attrs" size="20" v-on="on" @click="deleteItem(item)"> fa-trash
+                    <v-icon
+                      color="#FF5252"
+                      v-bind="attrs"
+                      size="20"
+                      v-on="on"
+                      @click="deleteItem(item)"
+                    >
+                      fa-trash
                     </v-icon>
                   </template>
                   <span>حذف</span>
@@ -68,14 +94,21 @@
           <v-container>
             <v-form>
               <v-row class="justify-center">
-                <img :src="this.$store.state.FileUrl + table.imageUrlForShow" alt width="300" height="200" />
+                <img
+                  :src="this.$store.state.FileUrl + table.imageUrlForShow"
+                  alt
+                  width="300"
+                  height="200"
+                />
               </v-row>
             </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions class="ml-3">
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="table.showImageDailog = false"> الغاء </v-btn>
+          <v-btn color="primary" text @click="table.showImageDailog = false">
+            الغاء
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -92,28 +125,59 @@
               <v-row>
                 <!-- name -->
                 <v-col md="6" cols="12">
-                  <v-text-field v-model="editedItem.account_name" dense label="الاسم" :rules="editRules.account_name"
-                    outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_name"
+                    dense
+                    label="الاسم"
+                    :rules="editRules.account_name"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
                 <!-- mobile -->
                 <v-col md="6" cols="12">
-                  <v-text-field v-model="editedItem.account_mobile" dense label="الهاتف"
-                    :rules="editRules.account_mobile" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_mobile"
+                    dense
+                    label="الهاتف"
+                    :rules="editRules.account_mobile"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
                 <!-- email -->
                 <v-col md="6" cols="12">
-                  <v-text-field v-model="editedItem.account_email" dense label="الايميل"
-                    :rules="editRules.account_email" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_email"
+                    dense
+                    label="الايميل"
+                    :rules="editRules.account_email"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
                 <!-- password -->
                 <v-col md="6" cols="12">
-                  <v-text-field v-model="editedItem.account_password_show" dense label="الرمز"
-                    :rules="editRules.account_password_show" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_password_show"
+                    dense
+                    label="الرمز"
+                    :rules="editRules.account_password_show"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
                 <!-- gender -->
                 <v-col md="6" cols="12">
-                  <v-select v-model="editedItem.account_gender" dense :items="account_genderItems" item-text="text"
-                    item-value="value" label="الجنس" outlined></v-select>
+                  <v-select
+                    v-model="editedItem.account_gender"
+                    dense
+                    :items="account_genderItems"
+                    item-text="text"
+                    item-value="value"
+                    label="الجنس"
+                    outlined
+                  ></v-select>
                 </v-col>
                 <!-- type -->
                 <!-- <v-col md="6" cols="12">
@@ -122,20 +186,56 @@
                 </v-col> -->
                 <!-- birthday -->
                 <v-col md="6" cols="12">
-                  <v-menu v-model="menuAccountBirthday" :close-on-content-click="false" :nudge-right="40"
-                    transition="scale-transition" offset-y min-width="290px">
+                  <v-menu
+                    v-model="menuAccountBirthday"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
                     <template v-slot:activator="{ on, attrs }">
-                      <v-text-field v-model="editedItem.account_birthday" :rules="editRules.account_birthdayRules" dense
-                        label="المواليد" outlined clearable readonly v-bind="attrs" v-on="on"></v-text-field>
+                      <v-text-field
+                        v-model="editedItem.account_birthday"
+                        :rules="editRules.account_birthdayRules"
+                        dense
+                        label="المواليد"
+                        outlined
+                        clearable
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-text-field>
                     </template>
-                    <v-date-picker v-model="editedItem.account_birthday" @input="menuAccountBirthday = false">
+                    <v-date-picker
+                      v-model="editedItem.account_birthday"
+                      @input="menuAccountBirthday = false"
+                    >
                     </v-date-picker>
                   </v-menu>
                 </v-col>
                 <!-- address -->
                 <v-col md="6" cols="12">
-                  <v-text-field v-model="editedItem.account_address" :rules="editRules.account_addressRules" dense
-                    label="العنوان" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_address"
+                    :rules="editRules.account_addressRules"
+                    dense
+                    label="العنوان"
+                    outlined
+                    required
+                  ></v-text-field>
+                </v-col>
+                <!-- type -->
+                <v-col md="6" cols="12">
+                  <v-select
+                    v-model="editedItem.account_type"
+                    :items="account_typeItems"
+                    dense
+                    item-text="text"
+                    item-value="value"
+                    label="نوع الحساب"
+                    outlined
+                  ></v-select>
                 </v-col>
               </v-row>
             </v-form>
@@ -144,8 +244,14 @@
         <v-card-actions class="ml-3">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="EditPasswordDialog = false"> الغاء </v-btn>
-          <v-btn color="primary" :loading="EditPasswordLoading" :disabled="!isFormValidEditPassword"
-            @click="submitEditTeacher"> تعديل </v-btn>
+          <v-btn
+            color="primary"
+            :loading="EditPasswordLoading"
+            :disabled="!isFormValidEditPassword"
+            @click="submitEditTeacher"
+          >
+            تعديل
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -153,11 +259,15 @@
     <!-- delete dialog -->
     <v-dialog v-model="dialogDelete" max-width="500px">
       <v-card>
-        <v-card-title class="headline justify-center"> هل انت متأكد من حذف هذا الحساب ؟ </v-card-title>
+        <v-card-title class="headline justify-center">
+          هل انت متأكد من حذف هذا الحساب ؟
+        </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialogDelete = false"> الغاء </v-btn>
-          <v-btn color="primary" :loading="deleteItemLoading" @click="deleteItemConfirm"> حذف </v-btn>
+          <v-btn color="primary" :loading="deleteItemLoading" @click="deleteItemConfirm">
+            حذف
+          </v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -167,7 +277,9 @@
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
-        <v-card-title class="headline justify-center"> {{ dialogData.bodyText }} </v-card-title>
+        <v-card-title class="headline justify-center">
+          {{ dialogData.bodyText }}
+        </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialogData.open = false"> تم </v-btn>
@@ -197,7 +309,8 @@ export default {
 
       account_typeItems: [
         { text: 'مدير', value: 'manager' },
-        { text: 'سكرتير', value: 'assistance' },
+        { text: 'اداري', value: 'assistance' },
+        { text: 'محاسب', value: 'accountantPrivilege' },
       ],
 
       editRules: {
@@ -250,7 +363,7 @@ export default {
         { text: 'الهاتف', value: 'account_mobile' },
         { text: 'الايميل', value: 'account_email' },
         { text: 'الباسورد', value: 'account_password_show' },
-        // { text: 'النوع', value: 'account_type' },
+        { text: 'النوع', value: 'account_type' },
 
         {
           text: 'العنوان',
@@ -260,7 +373,7 @@ export default {
         { text: 'العمليات', value: 'actions', sortable: false },
       ],
       studentsData: [],
-      content_url: null
+      content_url: null,
     }
   },
   mounted() {
@@ -283,7 +396,6 @@ export default {
         this.studentsData = response.data.results
         this.content_url = response.data.content_url
       }
-
     },
 
     deleteItem(item) {
@@ -293,7 +405,6 @@ export default {
 
     async deleteItemConfirm() {
       this.deleteItemLoading = true
-
 
       const response = await adminApi.removeManager(this.deletedItem._id)
 
@@ -360,4 +471,3 @@ a {
   text-decoration: none;
 }
 </style>
-
