@@ -50,6 +50,10 @@
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
             <span class="primary--text ml-5">تاريخ الاستمارة</span> {{ data.createdAt }}
           </div>
+          <!-- last_work -->
+          <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
+            <span class="primary--text ml-5">العمل السابق</span> {{ data.last_work }}
+          </div>
         </v-col>
       </v-row>
     </v-card>

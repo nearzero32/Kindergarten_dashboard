@@ -80,6 +80,19 @@
           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
             <span class="primary--text ml-5">هاتف الام</span> {{ data.motherPhone }}
           </div>
+           <!-- is_allergic -->
+           <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
+            <span class="primary--text ml-5">هل لدى الطفل اي نوع من الحساسية</span> <v-icon v-if="data.is_allergic" color="green"> fa-check </v-icon>
+                  <v-icon v-else color="red"> fa-times </v-icon>
+          </div>
+          <!-- allergic -->
+          <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
+            <span class="primary--text ml-5">اذكر نوع الحساسية</span> {{ data.allergic }}
+          </div>
+          <!-- diseases -->
+          <div class="py-2 px-2 d-flex justify-space-between" style="border: 1px solid cyan">
+            <span class="primary--text ml-5">هل لدى الطفل اي نوع من الامراض المزمنة</span> {{ data.diseases }}
+          </div>
         </v-col>
       </v-row>
     </v-card>

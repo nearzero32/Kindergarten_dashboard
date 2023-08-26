@@ -449,7 +449,11 @@ class Api {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
-      .get(`/student/deleted/get/page/${page}/limit/${limit}`)
+      .post('/student/deleted/get', {
+        page,
+        limit,
+        search
+      })
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)

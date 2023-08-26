@@ -173,7 +173,7 @@ export default {
       this.table.loading = true
       let { page, itemsPerPage } = this.tableOptions
       if (!search) {
-        search = ''
+        search = null
       }
 
       if (!page) {
@@ -203,7 +203,7 @@ export default {
         {
           query: { search: this.table.search },
         },
-        () => { },
+        () => {},
       )
     },
 
