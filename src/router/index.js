@@ -291,6 +291,89 @@ const routes = [
     },
   },
 
+  // review Show
+  {
+    path: '/showReview',
+    name: 'showReview',
+    component: () =>
+      import('@/views/manager/review/reviewShow/studentSelect.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/showReview/show/details/:account_id/:account_name',
+    name: 'showingReviewDetailsTeacher',
+    component: () =>
+      import('@/views/manager/review/reviewShow/review.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  // review Show
+
+  // review Add
+  {
+    path: '/review/add',
+    name: 'reviewAdd',
+
+    component: () =>
+      import('@/views/manager/review/reviewAdd/selectClassAndDate.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/review/add/:class_school_id/:date/:class_school_name',
+    name: 'reviewAddShow',
+    component: () =>
+      import('@/views/manager/review/reviewAdd/review.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  // review Add
+
   //AllStudent
   {
     path: '/allStudent',

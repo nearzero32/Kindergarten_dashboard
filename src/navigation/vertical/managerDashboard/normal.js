@@ -74,6 +74,21 @@ let index = [{
   ],
 },
 
+//Reviews
+{
+  title: 'التقييم',
+  icon: 'fa fa-comments',
+  children: [{
+    title: 'عرض',
+    to: 'showReview',
+  },
+  {
+    title: 'اضافة',
+    to: 'reviewAdd',
+  },
+  ],
+},
+
 // drivers
 {
   title: 'السواق',

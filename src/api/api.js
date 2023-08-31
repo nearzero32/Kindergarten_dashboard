@@ -882,6 +882,62 @@ class Api {
       })
   }
 
+  // review
+  async getReview(account_id, study_year) {
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+
+    return axios
+      .get(`/review/student/account_id/${account_id}/study_year/${study_year}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
+  async getAccountReviewClassSchool(class_school_id, review_date, study_year) {
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+
+    return axios
+      .get(`/review/student/get/class_school_id/${class_school_id}/review_date/${review_date}/study_year/${study_year}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
+  async addReview(data, reviewIds) {
+
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+    return axios
+      .post(`/review/student/add`, {
+        data,
+        reviewIds
+      })
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
+  async removeReview(review_id) {
+
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+    return axios
+      .delete(`/review/student/remove/review_id/${review_id}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
 
   // teacher Absence
   async getAbsenceTeacher(study_year) {
