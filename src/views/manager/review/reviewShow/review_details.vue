@@ -27,10 +27,10 @@
               <template v-slot:item.actions="{ item }">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" v-bind="attrs" size="20" v-on="on" @click="showDetails(item)"> fa-eye
+                    <v-icon color="#FF5252" v-bind="attrs" size="20" v-on="on" @click="deleteItem(item)"> fa-trash
                     </v-icon>
                   </template>
-                  <span>عرض التفاصيل</span>
+                  <span>حذف</span>
                 </v-tooltip>
               </template>
             </v-data-table>
@@ -51,7 +51,7 @@
       </v-card>
     </v-dialog>
     <!-- End delete dailog -->
-    <!--- Dialog for show info to user-->
+    <!--- Dailog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Api from '@/api/api'
+import Api from '../../../../api/api'
 
 export default {
   data() {
@@ -88,7 +88,7 @@ export default {
         list: null,
         listLoading: true,
         downloadLoading: false,
-        filename: `${this.$route.params.class_name} تقييم الصف والشعبة`,
+        filename: `${this.$route.params.account_name} تقييم الطالب`,
         autoWidth: true,
         bookType: 'xlsx',
       },
@@ -109,7 +109,7 @@ export default {
           text: 'الاسم',
           value: 'account_name',
         },
-        // { text: 'الهاتف', value: 'account_mobile' },
+        { text: 'الهاتف', value: 'account_mobile' },
         { text: 'المستوى العلمي', value: 'review_scientific' },
         { text: 'المستوى السلوكي', value: 'review_behavior' },
         { text: 'المستوى الحضوري', value: 'review_presence' },
@@ -130,9 +130,8 @@ export default {
       this.table.loading = true
       const study_year = JSON.parse(localStorage.getItem('study_year'))
 
-      const response = await Api.getAccountReviewClassSchool(
-        this.$route.params.class_id,
-        this.$route.params.date,
+      const response = await Api.getReview(
+        this.$route.params.account_id,
         study_year,
       )
 
@@ -158,7 +157,7 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = [
           'الاسم',
-          // 'الهاتف',
+          'الهاتف',
           'المستوى العلمي',
           'المستوى السلوكي',
           'المستوى الحضوري',
@@ -168,7 +167,7 @@ export default {
         ]
         const filterVal = [
           'account_name',
-          // 'account_mobile',
+          'account_mobile',
           'review_scientific',
           'review_behavior',
           'review_presence',
@@ -218,10 +217,6 @@ export default {
         this.getData()
         this.showDialogfunction(response.data.results, 'primary')
       }
-    },
-
-    showDetails(item) {
-      this.$router.push(`/showReview/show/details/${item._id}/${item.account_name}`)
     },
   },
 }

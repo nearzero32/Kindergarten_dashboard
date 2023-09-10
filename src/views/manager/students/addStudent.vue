@@ -53,21 +53,21 @@
                 label="العنوان" outlined></v-text-field>
             </v-col> -->
             <!-- cardNumber -->
-            <v-col md="4" sm="6" cols="12">
+            <!-- <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.account_card_number" dense
                 label="رقم بطاقة البصمة الاولى (اختياري)" outlined></v-text-field>
-            </v-col>
+            </v-col> -->
             <!-- cardNumber -->
-            <v-col md="4" sm="6" cols="12">
+            <!-- <v-col md="4" sm="6" cols="12">
               <v-text-field v-model="teacherData.account_card_number_two" dense
                 label="رقم بطاقة البصمة الثانية (اختياري)" outlined></v-text-field>
-            </v-col>
+            </v-col> -->
             <!-- division -->
-            <v-col md="4" sm="6" cols="12">
+            <!-- <v-col md="4" sm="6" cols="12">
               <v-autocomplete v-model="teacherData.account_division" :items="classSchoolData" :loading="classLoading"
                 :item-text="item => item.class_name + ' - ' + item.leader" item-value="_id" clearable
                 label="الصف والشعبة" dense outlined></v-autocomplete>
-            </v-col>
+            </v-col> -->
           </v-row>
         </v-form>
         <div class="d-flex justify-center mt-2">
@@ -76,7 +76,7 @@
         </div>
       </v-card>
     </v-container>
-    <!--- Dailog for show info to user-->
+    <!--- Dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
@@ -180,7 +180,7 @@ export default {
         account_notification: 1,
         isAccountDisabled: true,
         account_address: null,
-        account_division: +this.$route.params.class_school_id,
+        account_division: this.$route.params.class_school_id,
         salary: null,
         payment: null,
         discount: null,
@@ -228,7 +228,7 @@ export default {
         account_address: this.teacherData.account_address,
         account_card_number: this.teacherData.account_card_number,
         account_card_number_two: this.teacherData.account_card_number_two,
-        class_school_id: this.teacherData.account_division,
+        class_school_id: this.$route.params.class_school_id,
         isAccountDisabled: this.teacherData.isAccountDisabled,
         study_year: study_year,
       })

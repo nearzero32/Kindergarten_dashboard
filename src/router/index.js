@@ -296,7 +296,7 @@ const routes = [
     path: '/showReview',
     name: 'showReview',
     component: () =>
-      import('@/views/manager/review/reviewShow/studentSelect.vue'),
+      import('@/views/manager/review/reviewShow/selectClassAndDate.vue'),
     beforeEnter(to, from, next) {
       if (
         localStorage.getItem('accessToken') &&
@@ -314,6 +314,25 @@ const routes = [
   {
     path: '/showReview/show/details/:account_id/:account_name',
     name: 'showingReviewDetailsTeacher',
+    component: () =>
+      import('@/views/manager/review/reviewShow/review_details.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
+  {
+    path: '/showReview/show/:class_id/:date/:class_name',
+    name: 'showingReviewClassSchool',
     component: () =>
       import('@/views/manager/review/reviewShow/review.vue'),
     beforeEnter(to, from, next) {

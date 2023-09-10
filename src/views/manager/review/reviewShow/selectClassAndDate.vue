@@ -73,7 +73,7 @@ export default {
   methods: {
     goToAbsensePage() {
       this.$router.push(
-        `/review/add/${this.data.chooseClass._id}/${this.data.date}/${this.data.chooseClass.class_name}_${this.data.chooseClass.leader}`,
+        `/showReview/show/${this.data.chooseClass._id}/${this.data.date}/${this.data.chooseClass.class_name}_${this.data.chooseClass.leader}`,
       )
     },
     async getClassAndSchoolName(event) {

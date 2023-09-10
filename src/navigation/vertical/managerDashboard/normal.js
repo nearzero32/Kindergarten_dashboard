@@ -147,11 +147,11 @@ let index = [{
 },
 
 // fingerprint
-{
-  title: 'البصمة',
-  icon: 'fa-fingerprint',
-  to: 'fingerPrint',
-},
+// {
+//   title: 'البصمة',
+//   icon: 'fa-fingerprint',
+//   to: 'fingerPrint',
+// },
 
 // schoolReq
 {
