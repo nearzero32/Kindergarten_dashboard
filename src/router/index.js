@@ -331,7 +331,7 @@ const routes = [
     },
   },
   {
-    path: '/showReview/show/:class_id/:date/:class_name',
+    path: '/showReview/show/:class_id/:class_name',
     name: 'showingReviewClassSchool',
     component: () =>
       import('@/views/manager/review/reviewShow/review.vue'),

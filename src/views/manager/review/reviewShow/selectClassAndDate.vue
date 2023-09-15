@@ -13,7 +13,7 @@
               " :rules="addRules.classRules" clearable label="الصف والشعبة" solo return-object></v-autocomplete>
             </v-col>
           </v-row>
-          <v-row align="center" justify="center">
+          <!-- <v-row align="center" justify="center">
             <v-col cols="12" sm="6">
               <v-menu v-model="menuAccountStartDate" :close-on-content-click="false" :nudge-right="40"
                 transition="scale-transition" offset-y min-width="290px">
@@ -24,7 +24,7 @@
                 <v-date-picker v-model="data.date" @input="menuAccountStartDate = false"></v-date-picker>
               </v-menu>
             </v-col>
-          </v-row>
+          </v-row> -->
         </v-form>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="6">
@@ -73,7 +73,7 @@ export default {
   methods: {
     goToAbsensePage() {
       this.$router.push(
-        `/showReview/show/${this.data.chooseClass._id}/${this.data.date}/${this.data.chooseClass.class_name}_${this.data.chooseClass.leader}`,
+        `/showReview/show/${this.data.chooseClass._id}/${this.data.chooseClass.class_name}_${this.data.chooseClass.leader}`,
       )
     },
     async getClassAndSchoolName(event) {

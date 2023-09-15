@@ -896,6 +896,19 @@ class Api {
       })
   }
 
+  async getAccountReviewClassSchoolToShow(class_school_id, review_date, study_year) {
+    axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
+
+    return axios
+      .get(`/review/student/get/to_show/class_school_id/${class_school_id}/review_date/${review_date}/study_year/${study_year}`)
+      .then(Response => Response)
+      .catch(error => {
+        console.log('error', error)
+
+        return error.response
+      })
+  }
+
   async getAccountReviewClassSchool(class_school_id, review_date, study_year) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 

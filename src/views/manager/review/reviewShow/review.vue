@@ -130,11 +130,13 @@ export default {
       this.table.loading = true
       const study_year = JSON.parse(localStorage.getItem('study_year'))
 
-      const response = await Api.getAccountReviewClassSchool(
+      const response = await Api.getAccountReviewClassSchoolToShow(
         this.$route.params.class_id,
         this.$route.params.date,
         study_year,
       )
+
+      console.log(response)
 
       if (response.status === 401) {
         this.table.loading = false
