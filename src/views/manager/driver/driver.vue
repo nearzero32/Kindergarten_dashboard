@@ -47,11 +47,19 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="#FF5252" v-bind="attrs" size="20" v-on="on" @click="deleteItem(item)"> fa-trash
+                    <v-icon color="#FF5252" class="ml-2" v-bind="attrs" size="20" v-on="on" @click="deleteItem(item)"> fa-trash
                     </v-icon>
                   </template>
                   <span>حذف</span>
                 </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="rgb(255 180 0)" v-bind="attrs" size="18" v-on="on" @click="goToPrintPage(item)"> fa-print
+                    </v-icon>
+                  </template>
+                  <span>طباعة</span>
+                </v-tooltip>
+
               </template>
             </v-data-table>
           </v-col>
@@ -124,7 +132,7 @@
       </v-card>
     </v-dialog>
     <!-- Edit dialog -->
-    <!--- Dailog for show info to user-->
+    <!--- dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
@@ -354,6 +362,14 @@ export default {
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => v[j]))
     },
+
+    goToPrintPage(item) {
+      let routeData = this.$router.resolve({ name: 'printOneDriver' })
+      window.open(routeData.href, '_blank')
+
+      localStorage.setItem('printOneDriver', JSON.stringify(item))
+    },
+
   },
 }
 </script>

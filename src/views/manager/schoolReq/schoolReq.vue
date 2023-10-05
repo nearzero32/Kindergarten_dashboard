@@ -156,6 +156,13 @@
                   </template>
                   <span>حذف</span>
                 </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="rgb(255 180 0)" v-bind="attrs" size="18" v-on="on" @click="goToPrintPage(item)"> fa-print
+                    </v-icon>
+                  </template>
+                  <span>طباعة</span>
+                </v-tooltip>
               </template>
             </v-data-table>
           </v-col>
@@ -504,6 +511,13 @@ export default {
 
       localStorage.setItem('schoolReqDetails', JSON.stringify(data))
       this.$router.push('/schoolReqDetails')
+    },
+
+    goToPrintPage(item) {
+      let routeData = this.$router.resolve({ name: 'printOneSchoolReq' })
+      window.open(routeData.href, '_blank')
+
+      localStorage.setItem('printOneSchoolReq', JSON.stringify(item))
     },
   },
 }
