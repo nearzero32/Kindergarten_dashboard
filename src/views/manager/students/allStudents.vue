@@ -57,7 +57,7 @@
               </template> -->
               <template v-slot:item.isAccountDisabled="{ item }">
                 <span v-if="item.isAccountDisabled === true" class="warning--text">متوقف</span>
-                <span v-else>مقعل</span>
+                <span v-else>مفعل</span>
               </template>
               <template v-slot:item.isAccountUploadedFile="{ item }">
                 <span v-if="!item.isAccountUploadedFile">لا توجد بيانات</span>
@@ -410,6 +410,7 @@ export default {
       } else {
         this.table.loading = false
         this.table.teacherData = response.data.results.data
+        console.log(this.table.teacherData)
         this.table.totalTeacherData = response.data.results.count
         this.content_url = response.data.content_url
       }

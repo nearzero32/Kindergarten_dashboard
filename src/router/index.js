@@ -47,6 +47,25 @@ const routes = [
     },
   },
   {
+    path: '/printOneTeacher',
+    name: 'printOneTeacher',
+    component: () =>
+      import('@/views/manager/teachers/printOneTeacher.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
+    },
+  },
+  {
     path: '/teachers/addTeacher',
     name: 'addTeacher',
 
@@ -831,6 +850,25 @@ const routes = [
     },
   },
   {
+    path: '/printOneDriver',
+    name: 'printOneDriver',
+    component: () =>
+      import('@/views/manager/driver/printOneDriver.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        (JSON.parse(localStorage.getItem('results')).account_type === 'manager' || JSON.parse(localStorage.getItem('results')).account_type === 'assistance')
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
+    },
+  },
+  {
     path: '/drivers/addDriver',
     name: 'addDriver',
     // route level code-splitting
@@ -917,6 +955,25 @@ const routes = [
       layout: 'content',
     },
   },
+  {
+    path: '/printOneSchoolReq',
+    name: 'printOneSchoolReq',
+    component: () =>
+      import('@/views/manager/schoolReq/printOneSchoolReq.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
+    },
+  },
 
   // kindergartenReq
   {
@@ -958,6 +1015,25 @@ const routes = [
       layout: 'content',
     },
   },
+  {
+    path: '/printOneKindergartenReq',
+    name: 'printOneKindergartenReq',
+    component: () =>
+      import('@/views/manager/kindergartenReq/printOneKindergartenReq.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'content',
+    },
+  },
 
   // schoolWorkReq
   {
@@ -977,6 +1053,25 @@ const routes = [
     },
     meta: {
       layout: 'content',
+    },
+  },
+  {
+    path: '/printOneSchoolWorkReq',
+    name: 'printOneSchoolWorkReq',
+    component: () =>
+      import('@/views/manager/schoolReq/printOneSchoolWorkReq.vue'),
+    beforeEnter(to, from, next) {
+      if (
+        localStorage.getItem('accessToken') &&
+        JSON.parse(localStorage.getItem('results')).account_type === 'manager'
+      ) {
+        next()
+      } else {
+        next('/')
+      }
+    },
+    meta: {
+      layout: 'blank',
     },
   },
 

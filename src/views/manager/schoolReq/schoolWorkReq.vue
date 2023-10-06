@@ -2,10 +2,10 @@
   <div class="team">
     <v-container class="indigo lighten-5">
       <v-card class="white pa-3">
-        <h1 class="text-center subtitle-4 black--text"> طلبات التسجيل في الاستمارة الالكترونية </h1>
+        <h1 class="text-center subtitle-4 black--text">طلبات التسجيل في الاستمارة الالكترونية</h1>
         <v-row class="mt-5">
-           <v-spacer></v-spacer>
-           <v-col md="4" cols="12">
+          <v-spacer></v-spacer>
+          <v-col md="4" cols="12">
             <div class="d-flex flex-row">
               <v-text-field v-model="table.search" label="البحث" outlined dense @keyup.enter="search()"></v-text-field>
               <button class="search-btn" @click="search()">
@@ -16,40 +16,65 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-data-table :headers="table.headers" loading-text="جاري التحميل ... الرجاء الانتظار"
-              :items="table.teacherData" :options.sync="tableOptions" :server-items-length="table.totalTeacherData"
-              :loading="table.loading" class="elevation-1" :footer-props="{
+            <v-data-table
+              :headers="table.headers"
+              loading-text="جاري التحميل ... الرجاء الانتظار"
+              :items="table.teacherData"
+              :options.sync="tableOptions"
+              :server-items-length="table.totalTeacherData"
+              :loading="table.loading"
+              class="elevation-1"
+              :footer-props="{
                 itemsPerPageOptions: [10, 50, 100],
-              }">
-              <template slot="item._id" slot-scope="props"> {{ (tableOptions.page - 1) *
-                  tableOptions.itemsPerPage + props.index + 1
-              }} </template>
+              }"
+            >
+              <template slot="item._id" slot-scope="props">
+                {{ (tableOptions.page - 1) * tableOptions.itemsPerPage + props.index + 1 }}
+              </template>
               <template v-slot:item.image="{ item }">
-                <img v-if="item.image" class="teacher_image_table"
-                  :src="content_url + item.image" alt width="50" height="50"
-                  @click="showImage(item.image)" />
-                </template>
-                <template v-slot:item.is_staying_with_his_fathers="{ item }">
-                  <v-icon v-if="item.is_staying_with_his_fathers" color="green"> fa-check </v-icon>
-                  <v-icon v-else color="red"> fa-times </v-icon>
-                </template>
-                <template v-slot:item.address="{ item }">
-                  <span>{{ item.address + ' - ' + item.address_m + ' - ' + item.address_z + ' - ' + item.address_d }}</span>
-                </template>
+                <img
+                  v-if="item.image"
+                  class="teacher_image_table"
+                  :src="content_url + item.image"
+                  alt
+                  width="50"
+                  height="50"
+                  @click="showImage(item.image)"
+                />
+              </template>
+              <template v-slot:item.is_staying_with_his_fathers="{ item }">
+                <v-icon v-if="item.is_staying_with_his_fathers" color="green"> fa-check </v-icon>
+                <v-icon v-else color="red"> fa-times </v-icon>
+              </template>
+              <template v-slot:item.address="{ item }">
+                <span>{{
+                  item.address + ' - ' + item.address_m + ' - ' + item.address_z + ' - ' + item.address_d
+                }}</span>
+              </template>
               <template v-slot:item.actions="{ item }">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="primary" class="ml-2" v-bind="attrs" size="18" v-on="on" @click="showDetails(item)"> fa-info-circle
+                    <v-icon color="primary" class="ml-2" v-bind="attrs" size="18" v-on="on" @click="showDetails(item)">
+                      fa-info-circle
                     </v-icon>
                   </template>
                   <span>عرض معلومات الطالب</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="#FF8A80" v-bind="attrs" size="18" v-on="on" @click="deleteItem(item)"> fa-trash
+                    <v-icon color="#FF8A80" v-bind="attrs" size="18" v-on="on" @click="deleteItem(item)">
+                      fa-trash
                     </v-icon>
                   </template>
                   <span>حذف</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="rgb(255 180 0)" v-bind="attrs" size="18" v-on="on" @click="goToPrintPage(item)">
+                      fa-print
+                    </v-icon>
+                  </template>
+                  <span>طباعة</span>
                 </v-tooltip>
               </template>
             </v-data-table>
@@ -300,6 +325,13 @@ export default {
 
       localStorage.setItem('schoolWorkReqMoreDetails', JSON.stringify(data))
       this.$router.push('/schoolWorkReqMoreDetails')
+    },
+
+    goToPrintPage(item) {
+      let routeData = this.$router.resolve({ name: 'printOneSchoolWorkReq' })
+      window.open(routeData.href, '_blank')
+
+      localStorage.setItem('printOneSchoolWorkReq', JSON.stringify(item))
     },
   },
 }

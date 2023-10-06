@@ -177,8 +177,8 @@ export default {
         { text: 'كل الطلاب', value: 'schoolReceiver' },
         { text: 'صفوف وشعب', value: 'classSchoolReceiver' },
         { text: 'طالب', value: 'studentReceiver' },
-        // { text: 'استاذ', value: 'teacherReceiver' },
-        // { text: 'السائق', value: 'driverReceiver' },
+        { text: 'استاذ', value: 'teacherReceiver' },
+        { text: 'السائق', value: 'driverReceiver' },
       ],
 
       account_disableItems: [
@@ -225,9 +225,9 @@ export default {
   async created() {
     await this.getClassSchool()
     await this.getStudents()
-    // await this.getTeachers()
-    // await this.getDrivers()
-    // await this.getSubject()
+    await this.getTeachers()
+    await this.getDrivers()
+    await this.getSubject()
   },
   methods: {
     async getClassSchool() {

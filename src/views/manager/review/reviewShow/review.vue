@@ -109,12 +109,12 @@ export default {
           text: 'الاسم',
           value: 'account_name',
         },
-        // { text: 'الهاتف', value: 'account_mobile' },
         { text: 'المستوى العلمي', value: 'review_scientific' },
         { text: 'المستوى السلوكي', value: 'review_behavior' },
         { text: 'المستوى الحضوري', value: 'review_presence' },
         { text: 'التوجيه', value: 'review_guidance' },
         { text: 'الملاحظات', value: 'review_note' },
+        { text: 'ملاحظة ولي امر الطالب', value: 'review_father_note' },
         { text: 'التاريخ', value: 'review_date' },
         { text: 'العمليات', value: 'actions', sortable: false },
       ],
@@ -136,8 +136,6 @@ export default {
         study_year,
       )
 
-      console.log(response)
-
       if (response.status === 401) {
         this.table.loading = false
         this.$store.dispatch('submitLogout')
@@ -147,6 +145,7 @@ export default {
       } else {
         this.table.loading = false
         this.driversData = response.data.results
+        console.log(this.driversData)
       }
     },
     showDialogfunction(bodyText, color) {

@@ -139,6 +139,7 @@ export default {
         this.isPageNotLoading = true
         this.teacherData = response.data.results
         this.content_url = response.data.content_url
+        console.log(this.teacherData)
       }
     },
 

@@ -107,7 +107,7 @@ export default {
           sortable: false,
           value: 'account_name',
         },
-        { text: 'الهاتف', sortable: false, value: 'account_mobile' },
+        { text: 'الهاتف', sortable: false, value: 'account_mobile1' },
         { text: 'الجنس', sortable: false, value: 'account_gender' },
         { text: 'الصف والشعبة', sortable: false, value: 'account_division_current' },
       ],
@@ -180,7 +180,7 @@ export default {
       this.xlsxData.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['الاسم', 'الهاتف', 'الجنس', 'الصف', 'الشعبة']
-        const filterVal = ['account_name', 'account_mobile', 'account_gender', 'class_name', 'leader']
+        const filterVal = ['account_name', 'account_mobile1', 'account_gender', 'class_name', 'leader']
 
         // const { list } = this
         const data = this.formatJson(filterVal, this.driversData)
