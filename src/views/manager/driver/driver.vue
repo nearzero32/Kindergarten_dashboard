@@ -132,7 +132,7 @@
       </v-card>
     </v-dialog>
     <!-- Edit dialog -->
-    <!--- Dailog for show info to user-->
+    <!--- dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>

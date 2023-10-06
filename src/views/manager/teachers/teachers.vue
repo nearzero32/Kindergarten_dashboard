@@ -142,8 +142,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- End delete dailog -->
-    <!--- Dailog for show info to user-->
+    <!-- End delete dialog -->
+    <!--- dialog for show info to user-->
     <v-dialog v-model="dialogData.open" max-width="500px">
       <v-toolbar :color="dialogData.color" dense></v-toolbar>
       <v-card>
