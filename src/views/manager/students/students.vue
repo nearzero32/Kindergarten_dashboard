@@ -75,7 +75,7 @@
                   </template>
                   <span>حذف</span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <v-tooltip bottom v-if="item.isAccountUploadedFile">
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon color="secondary" v-bind="attrs" class="ml-2" size="20" v-on="on"
                       @click="deleteImgsItem(item)"> fa-eraser </v-icon>

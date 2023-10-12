@@ -2,12 +2,12 @@
   <div class="team">
     <v-container class="indigo lighten-5 my-5">
       <v-card class="white pa-3">
-        <h1 class="text-center mb-3 subtitle-4 black--text"> الغيابات </h1>
-        <h3 class="text-center mb-3 subtitle-4 black--text"> {{ $route.params.class_school_name }} </h3>
+        <h1 class="text-center mb-3 subtitle-4 black--text">الغيابات</h1>
+        <h3 class="text-center mb-3 subtitle-4 black--text">{{ $route.params.class_school_name }}</h3>
         <v-row>
           <v-col md="4" cols="12" align-self="center">
-            <v-btn tile color="success" :loading="xlsxData.downloadLoading" @click="handleDownload"> تحميل اكسل <v-icon
-                right> fa-download </v-icon>
+            <v-btn tile color="success" :loading="xlsxData.downloadLoading" @click="handleDownload">
+              تحميل اكسل <v-icon right> fa-download </v-icon>
             </v-btn>
           </v-col>
           <v-spacer></v-spacer>
@@ -18,11 +18,18 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-data-table :loading="table.loading" loading-text="جاري التحميل ... الرجاء الانتظار" :headers="headers"
-              :items="driversData" :search="table.search" :items-per-page="10" item-key="_id" class="elevation-1"
+            <v-data-table
+              :headers="headers"
+              loading-text="جاري التحميل ... الرجاء الانتظار"
+              :items="driversData"
+              :options.sync="tableOptions"
+              :server-items-length="table.totalTeacherData"
+              :loading="table.loading"
+              class="elevation-1"
               :footer-props="{
-                showFirstLastPage: true,
-              }">
+                itemsPerPageOptions: [10, 50, 100],
+              }"
+            >
               <template slot="item._id" slot-scope="props"> {{ props.index + 1 }} </template>
               <template v-slot:item.actions="{ item }">
                 <v-btn small color="primary" @click="goToDetails(item._id, item.account_name)"> عرض التفاصيل </v-btn>
@@ -61,6 +68,7 @@ export default {
       deleteItemLoading: false,
 
       editedItem: {},
+      tableOptions: {},
 
       dialogDelete: false,
       dialogData: {
@@ -79,6 +87,7 @@ export default {
       },
 
       table: {
+        totalTeacherData: 0,
         loading: false,
         search: null,
         imageUrlForShow: null,
@@ -103,6 +112,34 @@ export default {
       driversData: [],
     }
   },
+  watch: {
+    tableOptions: {
+      handler() {
+        const resultsLocalStorage = JSON.parse(localStorage.getItem('results'))
+        this.featuredFingerId = resultsLocalStorage.features_finger_id
+        this.getData()
+      },
+      deep: true,
+    },
+    'table.search': {
+      handler(newSearch, oldSearch) {
+        // قم بتحديث البيانات هنا باستخدام newSearch
+        // قد ترغب في إجراء طلب API أو تطبيق منطق آخر
+        this.getData(newSearch)
+      },
+      deep: true,
+    },
+    '$vuetify.breakpoint': {
+      handler() {
+        if (this.$vuetify.breakpoint.xs) {
+          this.isScreenXs = true
+        } else {
+          this.isScreenXs = false
+        }
+      },
+      deep: true,
+    },
+  },
   mounted() {
     this.getData()
   },
@@ -110,8 +147,28 @@ export default {
   methods: {
     async getData() {
       this.table.loading = true
+      let { search } = this.table
+
       const study_year = JSON.parse(localStorage.getItem('study_year'))
-      const response = await Api.getAbsenceStudent(this.$route.params.class_school_id, study_year)
+      let { page, itemsPerPage } = this.tableOptions
+      if (!search) {
+        search = ''
+      }
+
+      if (!page) {
+        page = 1
+      }
+      if (!itemsPerPage) {
+        itemsPerPage = 10
+      }
+
+      const response = await Api.getAbsenceStudent(
+        this.$route.params.class_school_id,
+        study_year,
+        search,
+        page,
+        itemsPerPage,
+      )
       if (response.status === 401) {
         this.$store.dispatch('submitLogout')
       } else if (response.status === 500) {
@@ -119,7 +176,8 @@ export default {
         this.showDialogfunction(response.data.results, '#FF5252')
       } else {
         this.table.loading = false
-        this.driversData = response.data.results
+        this.driversData = response.data.results.data
+        this.table.totalTeacherData = response.data.results.count
       }
     },
 

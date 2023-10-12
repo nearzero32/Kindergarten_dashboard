@@ -129,7 +129,6 @@ class Api {
   }
 
   async getOneTeacher(teacher_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/teacher/getOne/teacher_id/${teacher_id}`)
@@ -142,7 +141,6 @@ class Api {
   }
 
   async getSalaryTeacher(teacher_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/teacher/getSalary/teacher_id/${teacher_id}`)
@@ -154,8 +152,21 @@ class Api {
       })
   }
 
-  async editTeachers({ _id, account_name, account_mobile, account_birthday, account_card_number, account_gender, isAccountDisabled, account_address, account_max_vacation, isAccountCanSendNotification, account_salary, account_division, account_subject }) {
-
+  async editTeachers({
+    _id,
+    account_name,
+    account_mobile,
+    account_birthday,
+    account_card_number,
+    account_gender,
+    isAccountDisabled,
+    account_address,
+    account_max_vacation,
+    isAccountCanSendNotification,
+    account_salary,
+    account_division,
+    account_subject,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -172,7 +183,7 @@ class Api {
         isAccountCanSendNotification,
         account_salary,
         account_division,
-        account_subject
+        account_subject,
       })
       .then(Response => Response)
       .catch(error => {
@@ -182,8 +193,25 @@ class Api {
       })
   }
 
-  async addTeachers({ account_name, account_mobile, account_email, account_password, account_password_show, account_start_date, account_payment_type, account_birthday, account_card_number, account_gender, isAccountDisabled, account_address, account_max_vacation, isAccountCanSendNotification, account_salary, account_division, account_subject }) {
-
+  async addTeachers({
+    account_name,
+    account_mobile,
+    account_email,
+    account_password,
+    account_password_show,
+    account_start_date,
+    account_payment_type,
+    account_birthday,
+    account_card_number,
+    account_gender,
+    isAccountDisabled,
+    account_address,
+    account_max_vacation,
+    isAccountCanSendNotification,
+    account_salary,
+    account_division,
+    account_subject,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -204,7 +232,7 @@ class Api {
         account_payment_type,
         account_salary,
         account_division,
-        account_subject
+        account_subject,
       })
       .then(Response => Response)
       .catch(error => {
@@ -213,7 +241,6 @@ class Api {
         return error.response
       })
   }
-
 
   // students
   async getStudents(page, limit, search) {
@@ -246,7 +273,6 @@ class Api {
       })
   }
 
-
   async getOneStudent(student_id) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
@@ -266,7 +292,7 @@ class Api {
     return axios
       .put('/student/remove', {
         account_id,
-        account_delete_reason: reason
+        account_delete_reason: reason,
       })
       .then(Response => Response)
       .catch(error => {
@@ -292,7 +318,6 @@ class Api {
   }
 
   async editPasswordStudent(account_id, account_password, account_password_show) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -335,7 +360,20 @@ class Api {
       })
   }
 
-  async addStudent({ account_name, account_email, account_mobile, account_password, account_password_show, account_birthday, account_address, account_card_number, account_card_number_two, class_school_id, isAccountDisabled, study_year }) {
+  async addStudent({
+    account_name,
+    account_email,
+    account_mobile,
+    account_password,
+    account_password_show,
+    account_birthday,
+    account_address,
+    account_card_number,
+    account_card_number_two,
+    class_school_id,
+    isAccountDisabled,
+    study_year,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post('/student/add', {
@@ -350,10 +388,9 @@ class Api {
         account_card_number_two,
         account_division: {
           class_school_id,
-          class_study_year: study_year
+          class_study_year: study_year,
         },
-        isAccountDisabled
-
+        isAccountDisabled,
       })
       .then(Response => Response)
       .catch(error => {
@@ -363,7 +400,28 @@ class Api {
       })
   }
 
-  async editStudent({ _id, account_name, account_mobile1, account_mobile2, account_mobile3, account_mobile4, account_password, account_password_show, account_home, account_area, account_city, account_alley, account_nearest_point, account_birthday, account_card_number, account_card_number_two, isAccountDisabled, account_address, class_school_id, class_study_year }) {
+  async editStudent({
+    _id,
+    account_name,
+    account_mobile1,
+    account_mobile2,
+    account_mobile3,
+    account_mobile4,
+    account_password,
+    account_password_show,
+    account_home,
+    account_area,
+    account_city,
+    account_alley,
+    account_nearest_point,
+    account_birthday,
+    account_card_number,
+    account_card_number_two,
+    isAccountDisabled,
+    account_address,
+    class_school_id,
+    class_study_year,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -388,7 +446,7 @@ class Api {
         account_address,
         account_division: {
           class_school_id,
-          class_study_year
+          class_study_year,
         },
       })
       .then(Response => Response)
@@ -443,7 +501,6 @@ class Api {
       })
   }
 
-
   // deleted student
   async getStudentsDeleted(page, limit, search) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
@@ -452,7 +509,7 @@ class Api {
       .post('/student/deleted/get', {
         page,
         limit,
-        search
+        search,
       })
       .then(Response => Response)
       .catch(error => {
@@ -477,10 +534,9 @@ class Api {
 
   // class School
   async getClassSchool() {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .get("/classSchool")
+      .get('/classSchool')
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -490,7 +546,6 @@ class Api {
   }
 
   async getOneClassSchool(id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/classSchool/getOne/classSchoolId/${id}`)
@@ -503,14 +558,13 @@ class Api {
   }
 
   async addClassSchool(class_name, leader) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .post("/classSchool", {
+      .post('/classSchool', {
         schoolClass: {
           class_name,
-          leader
-        }
+          leader,
+        },
       })
       .then(Response => Response)
       .catch(error => {
@@ -521,13 +575,12 @@ class Api {
   }
 
   async editClassSchool({ id, class_name, leader }) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .put("/classSchool", {
+      .put('/classSchool', {
         class_name,
         leader,
-        classSchoolId: id
+        classSchoolId: id,
       })
       .then(Response => Response)
       .catch(error => {
@@ -538,7 +591,6 @@ class Api {
   }
 
   async removeClassSchool(class_school_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/classSchool/remove/class_school_id/${class_school_id}`)
@@ -591,7 +643,6 @@ class Api {
   }
 
   async editPasswordDriver(account_id, account_password, account_password_show) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -608,8 +659,20 @@ class Api {
       })
   }
 
-  async editDriver({ _id, account_name, account_mobile, account_birthday, account_gender, isAccountDisabled, account_address, account_max_vacation, account_salary, account_car_type, account_car_color, account_car_number }) {
-
+  async editDriver({
+    _id,
+    account_name,
+    account_mobile,
+    account_birthday,
+    account_gender,
+    isAccountDisabled,
+    account_address,
+    account_max_vacation,
+    account_salary,
+    account_car_type,
+    account_car_color,
+    account_car_number,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -625,7 +688,7 @@ class Api {
         account_salary,
         account_car_type,
         account_car_color,
-        account_car_number
+        account_car_number,
       })
       .then(Response => Response)
       .catch(error => {
@@ -635,8 +698,23 @@ class Api {
       })
   }
 
-  async addDriver({ account_name, account_password, account_password_show, account_mobile, account_email, account_birthday, account_gender, isAccountDisabled, account_address, account_max_vacation, account_salary, account_start_date, account_car_type, account_car_color, account_car_number }) {
-
+  async addDriver({
+    account_name,
+    account_password,
+    account_password_show,
+    account_mobile,
+    account_email,
+    account_birthday,
+    account_gender,
+    isAccountDisabled,
+    account_address,
+    account_max_vacation,
+    account_salary,
+    account_start_date,
+    account_car_type,
+    account_car_color,
+    account_car_number,
+  }) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
@@ -655,7 +733,7 @@ class Api {
         account_start_date,
         account_car_type,
         account_car_color,
-        account_car_number
+        account_car_number,
       })
       .then(Response => Response)
       .catch(error => {
@@ -685,7 +763,7 @@ class Api {
       .post('driver/getStudentsThatNotBelongToDriver', {
         page: +page,
         limit: +limit,
-        search
+        search,
       })
       .then(Response => Response)
       .catch(error => {
@@ -701,7 +779,7 @@ class Api {
     return axios
       .post('/driver/removeStudent', {
         account_id,
-        student_ids
+        student_ids,
       })
       .then(Response => Response)
       .catch(error => {
@@ -717,7 +795,7 @@ class Api {
     return axios
       .post('/driver/addStudent', {
         account_id,
-        student_ids
+        student_ids,
       })
       .then(Response => Response)
       .catch(error => {
@@ -727,13 +805,11 @@ class Api {
       })
   }
 
-
   // Subject
   async getSubject() {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .get("/subjects/get")
+      .get('/subjects/get')
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -743,10 +819,9 @@ class Api {
   }
 
   async getSubjectWithoutFeatures() {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .get("/subjects/getSubjectWithoutFeatures")
+      .get('/subjects/getSubjectWithoutFeatures')
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -756,11 +831,10 @@ class Api {
   }
 
   async addSubject(subject_name) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .post("/subjects/add", {
-        subject_name
+      .post('/subjects/add', {
+        subject_name,
       })
       .then(Response => Response)
       .catch(error => {
@@ -770,14 +844,12 @@ class Api {
       })
   }
 
-
   async editSubject(subject_name, subject_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .put("/subjects/edit", {
+      .put('/subjects/edit', {
         subject_name,
-        subject_id
+        subject_id,
       })
       .then(Response => Response)
       .catch(error => {
@@ -788,7 +860,6 @@ class Api {
   }
 
   async removeSubject(subject_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/subjects/remove/subject_id/${subject_id}`)
@@ -802,10 +873,9 @@ class Api {
 
   // class
   async getClass() {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .get("/class")
+      .get('/class')
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -815,11 +885,10 @@ class Api {
   }
 
   // absence
-  async getAbsenceStudent(class_school_id, study_year) {
-
+  async getAbsenceStudent(class_school_id, study_year, search, page, limit) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
-      .get(`/absence/student/class_school/${class_school_id}/study_year/${study_year}`)
+      .get(`/absence/student/class_school/${class_school_id}/study_year/${study_year}?page=${page}&limit=${limit}&search=${search}`)
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -828,7 +897,6 @@ class Api {
       })
   }
   async getAbsenceForSpecificAccount(account_id, study_year, page, limit) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/absence/student/account_id/${account_id}/study_year/${study_year}/page/${+page}/limit/${+limit}`)
@@ -841,7 +909,6 @@ class Api {
   }
 
   async getAccountAbsenceClassSchool(class_school_id, study_year, absence_date) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/absence/student/class_school_id/${class_school_id}/study_year/${study_year}/absence_date/${absence_date}`)
@@ -854,12 +921,11 @@ class Api {
   }
 
   async addAbsence(data, absenceIds) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/absence/student/add`, {
         data,
-        absenceIds
+        absenceIds,
       })
       .then(Response => Response)
       .catch(error => {
@@ -870,7 +936,6 @@ class Api {
   }
 
   async removeAbsenceStudent(absence_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/absence/student/absence_id/${absence_id}`)
@@ -900,7 +965,9 @@ class Api {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
     return axios
-      .get(`/review/student/get/to_show/class_school_id/${class_school_id}/review_date/${review_date}/study_year/${study_year}`)
+      .get(
+        `/review/student/get/to_show/class_school_id/${class_school_id}/review_date/${review_date}/study_year/${study_year}`,
+      )
       .then(Response => Response)
       .catch(error => {
         console.log('error', error)
@@ -923,12 +990,11 @@ class Api {
   }
 
   async addReview(data, reviewIds) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/review/student/add`, {
         data,
-        reviewIds
+        reviewIds,
       })
       .then(Response => Response)
       .catch(error => {
@@ -939,7 +1005,6 @@ class Api {
   }
 
   async removeReview(review_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/review/student/remove/review_id/${review_id}`)
@@ -951,10 +1016,8 @@ class Api {
       })
   }
 
-
   // teacher Absence
   async getAbsenceTeacher(study_year) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/absence/teacher/study_year/${study_year}`)
@@ -967,7 +1030,6 @@ class Api {
   }
 
   async getAbsenceAccountToAdd(study_year, absence_date) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/absence/teacher/study_year/${study_year}/absence_date/${absence_date}`)
@@ -1007,12 +1069,11 @@ class Api {
   }
 
   async addReview(data, reviewIds) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/review/student/add`, {
         data,
-        reviewIds
+        reviewIds,
       })
       .then(Response => Response)
       .catch(error => {
@@ -1023,7 +1084,6 @@ class Api {
   }
 
   async removeReview(review_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/review/student/remove/review_id/${review_id}`)
@@ -1035,10 +1095,8 @@ class Api {
       })
   }
 
-
   // DailyExams
   async getDailyExams(study_year, page, limit, search) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post('/dailyExams/get', {
@@ -1056,7 +1114,6 @@ class Api {
   }
 
   async getDailyExamsDegrees(class_school, study_year, exams_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .get(`/dailyExams/class_school/${class_school}/daily_exam_id/${exams_id}/study_year/${study_year}`)
@@ -1069,7 +1126,6 @@ class Api {
   }
 
   async addDailyExamsDegrees(exams_id, daily_exam_degrees) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post('/dailyExams/addDegrees', {
@@ -1084,8 +1140,13 @@ class Api {
       })
   }
 
-  async addDailyExams(daily_exam_subject, daily_exam_max_degree, daily_exam_date, daily_exam_study_year, daily_exam_class_school_id) {
-
+  async addDailyExams(
+    daily_exam_subject,
+    daily_exam_max_degree,
+    daily_exam_date,
+    daily_exam_study_year,
+    daily_exam_class_school_id,
+  ) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post('/dailyExams', {
@@ -1104,7 +1165,6 @@ class Api {
   }
 
   async removeDailyExams(exams_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/dailyExams/remove/exams_id/${exams_id}`)
@@ -1116,11 +1176,8 @@ class Api {
       })
   }
 
-
-
   // notification
   async getNotification({ notificationType, startDate, endDate, search, page, limit }) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/notification/get`, {
@@ -1140,7 +1197,6 @@ class Api {
   }
 
   async getNotificationStudent({ account_id, class_school, page, limit }) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/notification/getForStudent`, {
@@ -1158,7 +1214,6 @@ class Api {
   }
 
   async addNotification(formData) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .post(`/notification/add`, formData, {
@@ -1175,7 +1230,6 @@ class Api {
   }
 
   async removeNotification(notification_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/notification/remove/notification_id/${notification_id}`)
@@ -1186,7 +1240,6 @@ class Api {
         return error.response
       })
   }
-
 
   // latestNews
   async getAds(page, limit, search) {
@@ -1219,7 +1272,6 @@ class Api {
   }
 
   async removeAds(ads_id) {
-
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
     return axios
       .delete(`/ads/remove/ads_id/${ads_id}`)
@@ -1230,7 +1282,6 @@ class Api {
         return error.response
       })
   }
-
 
   // contact us
   async getContactUs() {
@@ -1253,7 +1304,7 @@ class Api {
       .put('/contactUs/edit', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-        }
+        },
       })
       .then(Response => Response)
       .catch(error => {
@@ -1289,7 +1340,6 @@ class Api {
         return error.response
       })
   }
-
 
   // exams
   async getExams(classSchool, study_year) {
@@ -1341,7 +1391,7 @@ class Api {
     return axios
       .put(`/exams/edit`, {
         exams_name,
-        exams_id
+        exams_id,
       })
       .then(Response => Response)
       .catch(error => {
@@ -1410,7 +1460,6 @@ class Api {
       })
   }
 
-
   async removeExamsSchedule(exams_id, exams_schedule_id) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
 
@@ -1437,7 +1486,6 @@ class Api {
         return error.response
       })
   }
-
 
   // degrees
   async getExamsNameDegrees(study_year, page, limit, search) {
@@ -1466,7 +1514,7 @@ class Api {
         subject_id,
         class_school,
         degree_exam_name,
-        study_year
+        study_year,
       })
       .then(Response => Response)
       .catch(error => {
@@ -1475,7 +1523,6 @@ class Api {
         return error.response
       })
   }
-
 
   async addExamsNameDegrees(data) {
     axios.defaults.headers.common.Authorization = localStorage.getItem('accessToken')
@@ -1548,7 +1595,7 @@ class Api {
 
     return axios
       .post(`/employee/add`, {
-        data
+        data,
       })
       .then(Response => Response)
       .catch(error => {
@@ -1563,7 +1610,7 @@ class Api {
 
     return axios
       .put(`/employee/edit`, {
-        data
+        data,
       })
       .then(Response => Response)
       .catch(error => {
@@ -1585,7 +1632,6 @@ class Api {
         return error.response
       })
   }
-
 
   // school register
   async getRegister({ student_class, page, limit, search }) {
