@@ -30,12 +30,8 @@
             contain
           />
           <h2>الأسم: {{ item.account_name }}</h2>
-          <h2>العنوان: {{ item.account_address }}</h2>
-          <h2>تاريخ الميلاد: {{ item.account_birthday }}</h2>
           <h2>البريد الألكتروني: {{ item.account_email }}</h2>
-          <h2>رقم الهاتف: {{ item.account_mobile }}</h2>
-          <h2>الراتب: {{ item.account_salary }}</h2>
-          <h2>عدد الطلاب: {{ item.number_of_student }}</h2>
+          <h2>الرمز: {{ item.account_password_show }}</h2>
         </div>
         <!-- Right Content -->
       </div>

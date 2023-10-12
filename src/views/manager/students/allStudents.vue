@@ -2,7 +2,7 @@
   <div>
     <v-container class="indigo lighten-5 my-5">
       <v-card class="white pa-3">
-        <h1 class="text-center subtitle-4 black--text"> جميع الطلاب </h1>
+        <h1 class="text-center subtitle-4 black--text">جميع الطلاب</h1>
         <v-row class="mt-5">
           <v-col md="4" cols="12">
             <div class="d-md-flex">
@@ -18,8 +18,14 @@
                   fa-plus
                 </v-icon>
               </v-btn> -->
-              <v-btn tile color="success" :loading="xlsxData.downloadLoading" :block="isScreenXs"
-                @click="getAllTeacherDataAxios"> تحميل اكسل <v-icon right> fa-download </v-icon>
+              <v-btn
+                tile
+                color="success"
+                :loading="xlsxData.downloadLoading"
+                :block="isScreenXs"
+                @click="getAllTeacherDataAxios"
+              >
+                تحميل اكسل <v-icon right> fa-download </v-icon>
               </v-btn>
             </div>
           </v-col>
@@ -35,21 +41,27 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-data-table :headers="table.headers" loading-text="جاري التحميل ... الرجاء الانتظار"
-              :items="table.teacherData" :options.sync="tableOptions" :server-items-length="table.totalTeacherData"
-              :loading="table.loading" class="elevation-1" :footer-props="{
+            <v-data-table
+              :headers="table.headers"
+              loading-text="جاري التحميل ... الرجاء الانتظار"
+              :items="table.teacherData"
+              :options.sync="tableOptions"
+              :server-items-length="table.totalTeacherData"
+              :loading="table.loading"
+              class="elevation-1"
+              :footer-props="{
                 itemsPerPageOptions: [10, 50, 100],
-              }">
+              }"
+            >
               <template slot="item._id" slot-scope="props"> {{ props.index + 1 }} </template>
               <template v-slot:item.account_name="{ item }">
-                <router-link :to="'/students/studentProfile/' + item._id + '/' + item.account_name"> {{
-                  item.account_name
-                }} </router-link>
+                <router-link :to="'/students/studentProfile/' + item._id + '/' + item.account_name">
+                  {{ item.account_name }}
+                </router-link>
               </template>
-              <template v-slot:item.account_division_current="{ item }"> {{
-                item.account_division_current.class_name +
-                  '__' + item.account_division_current.leader
-              }} </template>
+              <template v-slot:item.account_division_current="{ item }">
+                {{ item.account_division_current.class_name + '__' + item.account_division_current.leader }}
+              </template>
               <!-- <template v-slot:item.salary_all="{ item }">
                 <v-chip color="primary">
                   {{ item.salary_all }}
@@ -67,34 +79,46 @@
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon color="primary" class="ml-2" v-bind="attrs" size="20" v-on="on" @click="EditPassword(item)">
-                      fa-key </v-icon>
+                      fa-key
+                    </v-icon>
                   </template>
                   <span>تعديل الرمز</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon color="#FF5252" v-bind="attrs" class="ml-2" size="20" v-on="on" @click="deleteItem(item)">
-                      fa-trash </v-icon>
+                      fa-trash
+                    </v-icon>
                   </template>
                   <span>حذف</span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <v-tooltip bottom v-if="item.isAccountUploadedFile">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="secondary" v-bind="attrs" class="ml-2" size="20" v-on="on"
-                      @click="deleteImgsItem(item)"> fa-eraser </v-icon>
+                    <v-icon
+                      color="secondary"
+                      v-bind="attrs"
+                      class="ml-2"
+                      size="20"
+                      v-on="on"
+                      @click="deleteImgsItem(item)"
+                    >
+                      fa-eraser
+                    </v-icon>
                   </template>
                   <span>حذف المستمسكات</span>
                 </v-tooltip>
                 <v-tooltip bottom v-if="!item.isAccountDisabled">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="#FF5252" v-bind="attrs" size="20" v-on="on" @click="stopStudent(item)"> fa-ban
+                    <v-icon color="#FF5252" v-bind="attrs" size="20" v-on="on" @click="stopStudent(item)">
+                      fa-ban
                     </v-icon>
                   </template>
                   <span>ايقاف</span>
                 </v-tooltip>
                 <v-tooltip bottom v-else>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon color="accent" v-bind="attrs" size="20" v-on="on" @click="activeStudent(item)"> fa-check
+                    <v-icon color="accent" v-bind="attrs" size="20" v-on="on" @click="activeStudent(item)">
+                      fa-check
                     </v-icon>
                   </template>
                   <span>تفعيل</span>
@@ -138,12 +162,22 @@
             <v-form v-model="isFormValidEditPassword">
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="editedItem.account_password_show" label="الرمز"
-                    :rules="editRules.passwordRules" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.account_password_show"
+                    label="الرمز"
+                    :rules="editRules.passwordRules"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="editedItem.ensurePassword" label="تاكيد المركز"
-                    :rules="editRules.ensurePasswordRules" outlined required></v-text-field>
+                  <v-text-field
+                    v-model="editedItem.ensurePassword"
+                    label="تاكيد المركز"
+                    :rules="editRules.ensurePasswordRules"
+                    outlined
+                    required
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-form>
@@ -152,8 +186,14 @@
         <v-card-actions class="ml-3">
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="EditPasswordDialog = false"> الغاء </v-btn>
-          <v-btn color="primary" :loading="EditPasswordLoading" :disabled="!isFormValidEditPassword"
-            @click="submitEditTeacher"> تعديل </v-btn>
+          <v-btn
+            color="primary"
+            :loading="EditPasswordLoading"
+            :disabled="!isFormValidEditPassword"
+            @click="submitEditTeacher"
+          >
+            تعديل
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -167,8 +207,14 @@
             <v-form v-model="isFormValidDeletePassword">
               <v-row>
                 <v-col cols="12">
-                  <v-textarea v-model="deletedItemReason" name="input-7-1" :rules="deleteRules.reason" label="سبب الحذف"
-                    append-icon="fa-scroll" outlined></v-textarea>
+                  <v-textarea
+                    v-model="deletedItemReason"
+                    name="input-7-1"
+                    :rules="deleteRules.reason"
+                    label="سبب الحذف"
+                    append-icon="fa-scroll"
+                    outlined
+                  ></v-textarea>
                 </v-col>
               </v-row>
             </v-form>
@@ -176,9 +222,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="; (dialogDelete = false), (deletedItemReason = null)"> الغاء </v-btn>
-          <v-btn color="primary" :loading="deleteItemLoading" :disabled="!isFormValidDeletePassword"
-            @click="deleteItemConfirm"> حذف </v-btn>
+          <v-btn color="primary" text @click=";(dialogDelete = false), (deletedItemReason = null)"> الغاء </v-btn>
+          <v-btn
+            color="primary"
+            :loading="deleteItemLoading"
+            :disabled="!isFormValidDeletePassword"
+            @click="deleteItemConfirm"
+          >
+            حذف
+          </v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -410,7 +462,6 @@ export default {
       } else {
         this.table.loading = false
         this.table.teacherData = response.data.results.data
-        console.log(this.table.teacherData)
         this.table.totalTeacherData = response.data.results.count
         this.content_url = response.data.content_url
       }

@@ -455,7 +455,7 @@ const routes = [
     },
   },
   {
-    path: '/showAbsence/show/:class_school_id/:class_school_name',
+    path: '/showAbsence/show/:class_school_id/:class_school_name/',
     name: 'showingAbsence',
     component: () =>
       import('@/views/manager/absence/absenceShow/absence.vue'),
